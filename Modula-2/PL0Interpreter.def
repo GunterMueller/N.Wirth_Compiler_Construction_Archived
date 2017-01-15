@@ -13,6 +13,6 @@ VAR  code: ARRAY [0..maxadr]  OF  Instruction;
 
    PROCEDURE Interpret; 
 
-   PROCEDURE Endlnterpreter; 
+   PROCEDURE EndInterpreter; 
 
 END PL0Interpreter.
