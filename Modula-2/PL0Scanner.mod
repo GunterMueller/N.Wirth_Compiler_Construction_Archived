@@ -270,7 +270,6 @@
 
                           END  I 
 
-                       56 
 
                                            It ...       sym  .=  semicolon; 
 

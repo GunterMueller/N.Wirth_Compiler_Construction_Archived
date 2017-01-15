@@ -4,9 +4,9 @@ DEFINITION MODULE PL0Scanner;
 FROM BasicIO IMPORT File; 
 
 TYPE  Symbol = 
-             (null, odd,  times, div, plus, minus, 
-              eql, neq, 1ss, 1eq,  gtr, geq, 
-              comma, rparen, then, do,  1paren, 
+             (null, odd, times, div, plus, minus, 
+              eql, neq, lss, leq,  gtr, geq, 
+              comma, rparen, then, do,  lparen,
               becomes, number, ident, semicolon, end, 
               call, if, while, begin, read, write, 
               const, var, procedure, period, eof); 
