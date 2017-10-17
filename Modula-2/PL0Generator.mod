@@ -1,10 +1,11 @@
  IMPLEMENTATION MODULE PL0Generator; 
 
-           FROM  TextWindows IMPORT Window. OpenTextWindow. 
+(*   FROM  TextWindows IMPORT Window. OpenTextWindow. 
+               WriteString. Write. WriteLn.  WriteCard. CloseTextWindow; *)
+FROM  InOut IMPORT ReadInt, Write, WriteLn, WriteInt;
 
-               WriteString. Write. WriteLn.  WriteCard. CloseTextWindow; 
 
-           FROM PL0Interpreter IMPORT Instruction. maxfct. maxadr. code; 
+  FROM PL0Interpreter IMPORT Instruction. maxfct. maxadr. code; 
 
            VAR  L:  CARDINAL; (.current label.) 
 

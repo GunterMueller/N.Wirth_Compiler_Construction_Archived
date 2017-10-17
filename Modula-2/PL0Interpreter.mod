@@ -1,6 +1,5 @@
 IMPLEMENTATION MODULE PL0Interpreter; 
-(* GM No TextWindows for Mocka for Linux
-FROM  TextWindows IMPORT Window, Done, OpenTextWindow, 
+(*   FROM  TextWindows IMPORT Window, Done, OpenTextWindow, 
                          ReadInt, Write, WriteLn, WriteInt, Invert, C1oseTextWindow; 
 *)
 

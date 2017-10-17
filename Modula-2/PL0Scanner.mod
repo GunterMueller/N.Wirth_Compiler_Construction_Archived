@@ -1,12 +1,10 @@
-   IMPLEMENTATION MODULE PL0Scanner; 
+IMPLEMENTATION MODULE PL0Scanner; 
+  FROM  Terminal  IMPORT Read, BusyRead; 
+  FROM  FileSystem IMPORT ReadChar; 
+(*  FROM  TextWindows IMPORT Window, OpenTextWindow. 
+             Write. WriteCard, Invert, CloseTextWindow;  *)
+FROM  InOut IMPORT ReadInt, Write, WriteLn, WriteInt;
 
-          FROM  Terminal  IMPORT Read, BusyRead; 
-
-          FROM  FileSystem IMPORT ReadChar; 
-
-          FROM  TextWindows IMPORT Window, OpenTextWindow. 
-
-             Write. WriteCard, Invert, CloseTextWindow; 
 
           CONST maxCard = 177777B; bufLen = 1000; 
 
@@ -84,7 +82,6 @@
 
              IF  id1  < bufLen THEN 
 
-         54 
 
                 buf[id1J .=  ch;  id1  .=  id1  + 1 
 
@@ -357,8 +354,18 @@
 
         END  EnterKW; 
 
-       BEGIN K := 0;  id  := 0;  idO  .= 0; 
+BEGIN K := 0; id := 0; idO .= 0;
+EnterKW( do. ''~O'');
+EnterKW(if. "IF");
+EnterKW( end. "END");
+EnterKW(odd. "ODD");
+EnterKW(var. "VAR");
+EnterKW(call. "CALL");
+EnterKW( then. "THEN");
+EnterKW(begin. "BEGIN");
+EnterKW(const. "CONST");
+EnterKW(wh il e. "WHILE");
+EnterKW(procedure. "PROCEDURE");
+OpenTextWindow(win. O. 574. 704. 354. "PROGRA
 
-        EnterKW( do. 
-
-       58 
+END Pl0Scanner.

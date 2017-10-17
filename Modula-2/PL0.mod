@@ -1,12 +1,10 @@
 MODULE PL0; (*NW  WS  83/84*) 
+ FROM  Terminal IMPORT Read; 
+ FROM FileSystem IMPORT Lookup, Response, Close; 
+ (*FROM  TextWindows IMPORT Window. 
+                 OpenTextWindow. Write. WriteLn,  WriteString.  *)
+FROM  InOut IMPORT ReadInt, Write, WriteLn, WriteInt;
 
-             FROM  Terminal IMPORT Read; 
-
-             FROM FileSystem IMPORT Lookup, Response, Close; 
-
-             FROM  TextWindows IMPORT Window. 
-
-                 OpenTextWindow. Write. WriteLn,  WriteString. 
 
            CloseTextWindow; 
 

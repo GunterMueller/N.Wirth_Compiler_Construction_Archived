@@ -1,15 +1,12 @@
- IMPLEMENTATION MODULE PL0Parser; 
+IMPLEMENTATION MODULE PL0Parser; 
+  FROM  SYSTEM IMPORT TSIZE; 
+  FROM  Heap IMPORT ALLOCATE, ResetHeap; 
+(*  FROM  TextWindows IMPORT Window, OpenTextWindow, Write, 
+          WriteLn,  WriteCard, WriteString, Invert, CloseTextWindow;  *)
+FROM  InOut IMPORT ReadInt, Write, WriteLn, WriteInt;
 
-         FROM  SYSTEM IMPORT TSIZE; 
-
-         FROM  Heap IMPORT ALLOCATE, ResetHeap; 
-
-         FROM  TextWindows IMPORT Window, OpenTextWindow, Write, 
-
-          WriteLn,  WriteCard, WriteString, Invert, CloseTextWindow; 
 
          FROM PL0Scanner IMPORT 
-
             Symbol, sym, id, num, Diff, KeepId, GetSym, Mark; 
 
          FROM PL0Generator IMPORT Label, Gen, fixup; 
@@ -17,7 +14,6 @@
          TYPE  ObjectClass = (Const, Var,  Proc, Header); 
 
             ObjPtr  POINTER TO  Object; 
-
                 = RECORD name: CARDINAL; 
 
             Object 
