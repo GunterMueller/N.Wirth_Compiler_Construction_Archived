@@ -12,7 +12,6 @@ TYPE Instruction = RECORD f : [0..maxfct]; (* function *)
 VAR  code: ARRAY [0..maxadr]  OF  Instruction; 
 
    PROCEDURE Interpret; 
-
    PROCEDURE EndInterpreter; 
 
 END PL0Interpreter.

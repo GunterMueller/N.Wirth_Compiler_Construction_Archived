@@ -1,9 +1,8 @@
- DEFINITION MODULE PL0Parser; 
+DEFINITION MODULE PL0Parser; 
 
-         VAR  noerr: BOOLEAN; 
+ VAR  noerr: BOOLEAN; 
 
-         PROCEDURE Parse; 
+ PROCEDURE Parse; 
+ PROCEDURE EndParser; 
 
-         PROCEDURE EndParser; 
-
-        END  PL0Parser. 
+END  PL0Parser. 

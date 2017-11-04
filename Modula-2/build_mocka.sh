@@ -10,6 +10,7 @@ for x in *.def
 do
   mocka -s $(basename $x .def)
 done
+
 for x in *.mod
 do
   mocka -c $(basename $x .mod)

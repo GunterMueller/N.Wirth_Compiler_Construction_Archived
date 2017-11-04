@@ -1,76 +1,52 @@
- IMPLEMENTATION MODULE PL0Generator; 
+IMPLEMENTATION MODULE PL0Generator;
 
 (*   FROM  TextWindows IMPORT Window. OpenTextWindow. 
                WriteString. Write. WriteLn.  WriteCard. CloseTextWindow; *)
 FROM  InOut IMPORT ReadInt, Write, WriteLn, WriteInt;
 
+FROM PL0Interpreter IMPORT Instruction, maxfct, maxadr, code; 
 
-  FROM PL0Interpreter IMPORT Instruction. maxfct. maxadr. code; 
+ VAR  L:  CARDINAL; (*current label*) 
+      (* win:  Window;  *)
+      mnemonic: ARRAY [0..maxfct],[0..3]  OF  CHAR; 
 
-           VAR  L:  CARDINAL; (.current label.) 
+ PROCEDURE InitGenerator; 
+    BEGIN L :=  0; (* GM  Write(win. 14C)  *)
+    END  InitGenerator; 
 
-              win:  Window; 
+ PROCEDURE Label(): CARDINAL; 
+    BEGIN RETURN L 
+    END  Label; 
 
-              mnemonic: ARRAY [O .. maxfct]. [0 .. 3]  OF  CHAR; 
+ PROCEDURE Gen(x, y, z: CARDINAL); 
+    BEGIN 
+      IF  L >= maxadr THEN HALT END; 
+      WITH code[L]  DO 
+             f := x;  l  := y; a  := z 
+     END  ; 
 
-           PROCEDURE InitGenerator; 
+     (* GM WriteCard(win. L.  4); *)
+     (* GM WriteString(win. mnemonic[x]);  *)
+     (* GM WriteCard(win. y. 3); WriteCard(win. z. 6); WriteLn(win);  *)
+     L :=  L+1 
 
-           BEGIN L :=  0;  Write(win. 14C) 
+   END  Gen; 
 
-           END  InitGenerator; 
+ PROCEDURE fixup(x: CARDINAL); 
+    BEGIN code[x].a :=  L;  (* GM WriteString(win. "fixup at"); *) 
+          (* GM  WriteCard(win. x.  4); WriteLn(win)  *)
+    END  fixup; 
 
-           PROCEDURE Label(): CARDINAL; 
+ PROCEDURE EndGenerator; 
 
-           BEGIN RETURN L 
+    BEGIN (* GM CloseTextWindow(win)  *)
+    END  EndGenerator; 
 
-           END  Label; 
+ BEGIN (* GM OpenTextWindow(win. 235.  66.  234.  508. "CODE");  *)
 
-                                                    77 
+           mnemonic[0] :=  "LIT"; mnemonic[1] :=  "OPR"; 
+           mnemonic[2] :=  "LOD"; mnemonic[3] :=  "STO"; 
+           mnemonic[4] :=  "CAL"; mnemonic[5] :=  "INT"; 
+           mnemonic[6] :=  "JMP"; mnemonic[7] :=  "JPC"; 
 
-           PROCEDURE Gen(x. y. z:  CARDINAL); 
-
-           BEGIN 
-
-            IF  L )= maxadr THEN HALT END; 
-
-            WITH code[L]  DO 
-
-             f := x;  1  := y; a  := z 
-
-            END  ; 
-
-            WriteCard(win. L.  4); 
-
-            WriteString(win. mnemonic[x]); 
-
-            WriteCard(win. y. 3); WriteCard(win. z. 6); WriteLn(win); 
-
-            L :=  L+l 
-
-           END  Gen; 
-
-           PROCEDURE fixup(x: CARDINAL); 
-
-           BEGIN code[x].a :=  L;  WriteString(win. "fixup at"); 
-
-            WriteCard(win. x.  4); WriteLn(win) 
-
-           END  fixup; 
-
-           PROCEDURE EndGenerator; 
-
-           BEGIN CloseTextWindow(win) 
-
-           END  EndGenerator; 
-
-         BEGIN OpenTextWindow(win. 235.  66.  234.  508. "CODE"); 
-
-           mnemonic[O] .=  "  LIT"; mnemonic[l] .=  "  OPR"; 
-
-           mnemonic[2] .=  "  LOD"; mnemonic[3] .=  " STO"; 
-
-           mnemonic[4] .=  "  CAL"; mnemonic[5] .=  "  INT"; 
-
-           mnemonic[6] .=  "  JMP"; mnemonic[7] .=  "  JPC"; 
-
-         END  PL0Generator. 
+ END  PL0Generator. 

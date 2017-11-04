@@ -1,13 +1,9 @@
 DEFINITION MODULE PL0Generator; 
 
   PROCEDURE Label(): CARDINAL; (*label of next instruction*) 
-
   PROCEDURE Gen(f,l,a: CARDINAL); (*generate instruction*) 
-
   PROCEDURE fixup(x: CARDINAL); (*fixup code[x]*) 
-
   PROCEDURE InitGenerator; 
-
   PROCEDURE EndGenerator; 
 
 END  PL0Generator.
