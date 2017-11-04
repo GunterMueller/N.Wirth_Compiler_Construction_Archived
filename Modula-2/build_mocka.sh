@@ -2,13 +2,15 @@
 ############################################
 # This build file assumes the vishap oberon compiler is installed.
 ############################################
-rm *.o *.c *.h *.sym
-rm ./OSP
+rm -rf ./m2bin
 
 
 #
-voc RISC.Mod 
-voc OSS.Mod 
-voc OSS.Mod 
-voc OSG.Mod
-voc -m OSP.Mod
+for x in *.def
+do
+  mocka -s $(basename $x .def)
+done
+for x in *.mod
+do
+  mocka -c $(basename $x .mod)
+done
