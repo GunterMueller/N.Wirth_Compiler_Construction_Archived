@@ -3,12 +3,12 @@ IMPLEMENTATION MODULE PL0Scanner;
 (*  FROM  FileSystem IMPORT ReadChar;  *)
 (*  FROM  TextWindows IMPORT Window, OpenTextWindow. 
              Write. WriteCard, Invert, CloseTextWindow;  *)
-FROM  InOut IMPORT ReadInt, Write, WriteLn, WriteInt;
+FROM  InOut IMPORT Read, ReadInt, Write, WriteLn, WriteInt, WriteCard ;
 
 
  CONST maxCard = 177777B; bufLen = 1000; 
  VAR  ch:  CHAR; (*last character read*) 
-      idO, id1: CARDINAL; (*indices to identifier bufferr*) 
+      id0, id1: CARDINAL; (*indices to identifier bufferr*) 
       (* GM win: Window;  *)
       keyTab: ARRAY [1  .. 20]  OF 
               RECORD sym: Symbol; ind: CARDINAL END ;
@@ -18,12 +18,12 @@ FROM  InOut IMPORT ReadInt, Write, WriteLn, WriteInt;
              identifiers are stored with  leading length count*) 
 
  PROCEDURE Mark(n: CARDINAL); 
-    BEGIN Invert(win, TRUE); 
-           WriteCard(win, n,  1); Invert(win, FALSE) 
+    BEGIN (* Invert(win, TRUE);  *)
+           WriteCard(n,  1); (* GM Invert(win, FALSE)  *)
     END  Mark; 
 
  PROCEDURE GetCh; 
-    BEGIN ReadChar(source, ch); Write(win, ch) 
+    BEGIN Read(ch); Write(ch) 
     END  GetCh; 
 
  PROCEDURE Diff(u,v: CARDINAL): INTEGER; 
@@ -33,7 +33,7 @@ FROM  InOut IMPORT ReadInt, Write, WriteLn, WriteInt;
            IF  w = 0 THEN  RETURN 0 
            ELSIF buf[u] #  buf[v] THEN 
               RETURN INTEGER(buf[u]) - INTEGER(buf[v]) 
-           ELSE u  :=  u+1; v  :=  v+1; w :=  w-l 
+           ELSE u  :=  u+1; v  :=  v+1; w :=  w-1 
            END 
          END 
   END  Diff; 
@@ -56,7 +56,7 @@ FROM  InOut IMPORT ReadInt, Write, WriteLn, WriteInt;
               buf[id] :=  CHR(id1-id); (*Length*) 
               k  := 1; l := K; 
               REPEAT m :=  (k  + 1)  DIV  2; 
-               d  :=  Diff(id. keyTab[m].ind); 
+               d  :=  Diff(id, keyTab[m].ind); 
                IF  d  <=  0 THEN  l  :=  m - 1  END; 
                IF  d  >= 0 THEN  k  := m + 1  END 
               UNTIL k >  l; 
@@ -95,11 +95,11 @@ FROM  InOut IMPORT ReadInt, Write, WriteLn, WriteInt;
               GetCh 
      END  Comment; 
 
-   BEGIN BusyRead(xch); 
+   BEGIN Read(xch); 
          IF  xch  >  0C  THEN Read(xch) END; 
          LOOP (*ignore control characters*) 
               IF  ch  <=  " " THEN 
-                  IF  ch  = DC  THEN  ch  :=  "  "; EXIT  END ;
+                  IF  ch  = 0C  THEN  ch  :=  " "; EXIT  END ;
                     GetCh 
                   ELSIF ch  >=  177C  THEN  GetCh 
                   ELSE EXIT 
@@ -107,7 +107,7 @@ FROM  InOut IMPORT ReadInt, Write, WriteLn, WriteInt;
           END  ; 
 
           CASE ch  OF (* "  " <=  ch  < 177C  *) 
-              " " : sym := eof; ch := 0C | I
+              " " : sym := eof; ch := 0C | 
               "!" : sym := write; GetCh  |
               '"' : sym := null; GetCh | 
               "#" : sym := neq; GetCh |
@@ -126,100 +126,68 @@ FROM  InOut IMPORT ReadInt, Write, WriteLn, WriteInt;
               "-" : sym := minus; GetCh |
               "." : sym := period; GetCh |
               "/" : sym := div; GetCh |
-          "0" .. "9": Number |
+          "0".."9": Number |
               ":" : GetCh;
                     IF ch = "=" THEN GetCh; sym := becomes
                     ELSE sym := null
                     END |
+              ";" : sym := semicolon; GetCh |
+              "<" : GetCh;
+                    IF ch = "=" THEN GetCh; sym := leq
+                    ELSE sym := lss
+                    END |
+              "=" : sym := eql; GetCh |
+              ">" : GetCh;
+                    IF ch = "=" THEN GetCh; sym := geq
+                    ELSE sym := gtr
+                    END |
+              "?" : sym := read; GetCh |
+              "@" : sym := null; GetCh |
+          "A".."Z": Identifier |
+         "[".. "`": sym := null; GetCh |
+        "a".. "z" : Identifier |
+          "{".."~": sym := null; GetCh
+       END
+   END  GetSym; 
 
-t .
- . . .
- sym .= semicolon; GetCh
-"(If
- GetCh;
-IF ch = "=" THEN GetCh; sym .= 1eq
-ELSE sym .= lss
-END I
-11="
- sym .= eq1 ; GetCh
-")"
- GetCh;
-IF ch = It=" THEN GetCh; sym .= geq
-ELSE sym := gtr
-END I
-"1"
- sym .= read; GetCh
-"@"
- sym:= null; GetCh
-"A" .. "Z": Identifier I
-"[" .. "''': sym := null; GetCh
-.. a" .... z .. : Identifier I
-.. { .... "-": sym := null; GetCh
-END
+   PROCEDURE InitScanner; 
+      BEGIN  ch:=" "; 
+            IF  id0 = 0 THEN  id0  :=  id 
+            ELSE id  :=  id0; (* GM Write(win. 14C)  *)
+      END 
 
+    END  InitScanner; 
 
+ PROCEDURE CloseScanner; 
+    BEGIN  (* GM  C1oseTextWindow(win)  *)
+    END  CloseScanner; 
 
-
-                                   END 
-
-                               END  GetSym; 
-
-                               PROCEDURE          InitScanner; 
-
-                               BEGIN       ch    :=  ..   "; 
-
-                                   IF  ida = a THEN  ida  :=  id 
-
-                                       ELSE      id  :=  ida; Write(win. 14C) 
-
-                                   END 
-
-                               END  InitScanner; 
-
-                               PROCEDURE          C1oseScanner; 
-
-                               BEGIN      C1oseTextWindow(win) 
-
-                               END  C1oseScanner; 
-
-                               PROCEDURE          EnterKW(sym:              Symbol;        name:       ARRAY      OF  CHAR); 
-
-                               VAR  1.  L:  CARDINAL; 
-
-                               BEGIN       K :=  K+1; 
-
-                                   keyTab[KJ.sym              :=  sym; 
-
-                                   keyTab[KJ.ind :=  id; 
-
-                                   1  : = a;  L  : = HIGH  ( name)  ; 
-
-                                   buf[idJ :=  CHR(L+2); 
-
-                                   INC(id); 
-
-                                   WHILE       1 (=  L DO 
-
-                                       bUf[idJ :=  name[lJ; 
-
-                                       id  :=  id+1;  1  :=  1+1 
-
+ PROCEDURE EnterKW(sym: Symbol; name: ARRAY OF CHAR); 
+    VAR  l, L:  CARDINAL; 
+    BEGIN K :=  K+1; 
+          keyTab[K].sym :=  sym; 
+          keyTab[K].ind :=  id; 
+          l := 0;  L := HIGH(name); 
+          buf[id] :=  CHR(L+2); 
+          INC(id); 
+          WHILE l <=  L DO 
+            buf[id] :=  name[l]; 
+            id :=  id+1;  l :=  l+1 
           END 
+    END  EnterKW; 
 
-        END  EnterKW; 
+BEGIN K := 0; id := 0; id0 := 0;
+  EnterKW(do, "DO");
+  EnterKW(if, "IF");
+  EnterKW(end, "END");
+  EnterKW(odd, "ODD");
+  EnterKW(var, "VAR");
+  EnterKW(call, "CALL");
+  EnterKW(then, "THEN");
+  EnterKW(begin, "BEGIN");
+  EnterKW(const, "CONST");
+  EnterKW(while, "WHILE");
+  EnterKW(procedure, "PROCEDURE");
+  (* GM OpenTextWindow(win. O. 574. 704. 354. "PROGRAMM"); *)
 
-BEGIN K := 0; id := 0; idO .= 0;
-EnterKW( do. ''~O'');
-EnterKW(if. "IF");
-EnterKW( end. "END");
-EnterKW(odd. "ODD");
-EnterKW(var. "VAR");
-EnterKW(call. "CALL");
-EnterKW( then. "THEN");
-EnterKW(begin. "BEGIN");
-EnterKW(const. "CONST");
-EnterKW(wh il e. "WHILE");
-EnterKW(procedure. "PROCEDURE");
-OpenTextWindow(win. O. 574. 704. 354. "PROGRA
-
-END Pl0Scanner.
+END PL0Scanner.

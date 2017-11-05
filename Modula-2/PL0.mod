@@ -8,7 +8,8 @@ MODULE PL0; (*NW WS 83/84*)
 OpenTextWindow, Write, WriteLn, WriteString,
 CloseTextWindow; *)
 
-FROM  InOut IMPORT ReadInt, Write, WriteLn, WriteIn, WriteString;
+FROM  InOut IMPORT Read, Write, WriteLn, WriteString;
+FROM BasicIO IMPORT Accessible,Close,OpenInput;
 
 
 FROM PL0Scanner IMPORT InitScanner, source, CloseScanner;
@@ -30,34 +31,33 @@ WHILE (CAP(ch) >= "A") & (CAP(ch) <= "Z")
 OR (ch >= "0") & (ch <= "9")
 OR (ch = ".") OR (ch = DEL) DO
 IF ch = DEL THEN
-IF i > 3 THEN Write(win, DEL); i := i-1 END
+IF i > 3 THEN Write( DEL); i := i-1 END
 ELSIF i < NL THEN
-Write(win, ch); FileName[i] := ch; i := i+1
+Write(ch); FileName[i] := ch; i := i+1
 END ;
 Read(ch)
 END ;
 IF (3 <i) & (i <NL) & (FileName[i-1] = "." ) THEN
 FileName[i] := "P"; i := i+1;
 FileName[i] := "L"; i := i+1;
-FileName[i] := "0"; i := i+1; WriteString(win, "PLO")
+FileName[i] := "0"; i := i+1; WriteString("PLO")
 END ;
 FileName[i] := 0C
 END ReadName;
 
 BEGIN 
  (* GM OpenTextWindow(win, 0, 0, 704, 66, "DIALOG"); *)
-LOOP WriteString(win, "in> "); ReadName;
+LOOP WriteString("in> "); ReadName;
 IF ch = 33C THEN EXIT END ;
-Lookup(source, FileName, FALSE);
-IF source.res = done THEN
+IF Accessible(FileName, FALSE) THEN
 InitScanner; InitGenerator; Parse; Close(source);
 IF noerr THEN
-WriteString(wlin, " interpreting"); Interpret
-ELSE WriteString(win, " incorrect")
+WriteString(" interpreting"); Interpret
+ELSE WriteString(" incorrect")
 END
-ELSE WriteString(win, " not found")
+ELSE WriteString(" not found")
 END ;
-WriteLn(win)
+WriteLn()
 END ;
 
 CloseScanner; EndParser; EndGenerator; EndInterpreter;
