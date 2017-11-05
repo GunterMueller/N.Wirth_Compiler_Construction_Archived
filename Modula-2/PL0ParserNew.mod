@@ -1,6 +1,6 @@
 IMPLEMENTATION MODULE PL0ParserNew; 
 
-(* GM FROM SYSTEM IMPORT TSIZE; *)
+ FROM SYSTEM IMPORT TSIZE; 
 (* GM FROM Heap IMPORT ALLOCATE, ResetHeap; *)
 (* GM FROM TextWindows IMPORT Window, OpenTextWindow, Write,
 WriteLn, WriteCard, WriteString, Invert, CloseTextWindow; *)
@@ -18,14 +18,18 @@ FROM PL0Generator IMPORT Label, Gen, fixup;
 TYPE  ObjectClass = (Const, Var,  Proc, Header);
       ObjPtr  =  POINTER TO  Object;
       Object = RECORD name: CARDINAL;
-                  next:  ObjPtr;
-                  CASE kind:  ObjectClass OF
-                   Const, Var, Proc: |
+               next: ObjPtr;
+               CASE kind: ObjectClass OF
+                    Const: val: INTEGER |
+                    Var: vlev, vadr: CARDINAL |
+                   Proc: plev, padr, size: CARDINAL |
                    Header: last, down: ObjPtr
-                  END
-                 END  ;
+                END
+      END ;
+
 
 VAR  topScope, bottom,  undef:  ObjPtr;
+     curlev: CARDINAL;
            (* GM win: Window;  *)
 
 
@@ -50,7 +54,7 @@ IF Diff(id, obj^.name) = 0 THEN err(25) END;
 obj := obj^.next
 END ;
 (*now enter new object into list*)
-ALLOCATE(obj);
+ALLOCATE(obj,TSIZE(Object));
 WITH obj^ DO
 name := id; kind := k; next := NIL
 END ;
@@ -131,10 +135,10 @@ IF sym = odd THEN
 GetSym; expression; Gen(1,0,5)
 ELSE
 expression;
-IF (eq1 <= sym) & (sym <= geq) THEN
-re10p := sym; GetSym; expression;
-CASE re10p OF
-eq1: Gen(1,0, 8) |
+IF (eql <= sym) & (sym <= geq) THEN
+relop := sym; GetSym; expression;
+CASE relop OF
+eql: Gen(1,0, 8) |
 neq: Gen(1,0, 9) |
 lss: Gen(1,0,10) |
 geq: Gen(1,0,11) |
@@ -149,25 +153,25 @@ END condition;
 PROCEDURE statement;
 VAR obj: ObjPtr; L0, L1: CARDINAL;
 BEGIN WriteString("statement"); WriteLn();
-test(ident. lD);
+test(ident, 10);
 IF sym = ident THEN
 obj := find(id);
 IF obj^.kind # Var THEN err(12); obj := NIL END;
 GetSym;
 IF sym = becomes THEN GetSym
-ELSIF sym = eq1 THEN err(13); GetSym
+ELSIF sym = eql THEN err(13); GetSym
 ELSE err(13)
 END ;
 expression;
 IF obj # NIL THEN
-Gen(3, cur1ev - obj^.v1ev, obj^.vadr) (*store*)
+Gen(3, curlev - obj^.vlev, obj^.vadr) (*store*)
 END
 ELSIF sym = call THEN
 GetSym;
 IF sym = ident THEN
 obj := find(id);
 IF obj^.kind = Proc THEN
-Gen(4, curley - obj^.plev, obj^.padr)
+Gen(4, curlev - obj^.plev, obj^.padr)
 ELSE err(15)
 END ;
 GetSym
@@ -177,31 +181,31 @@ ELSIF sym = begin THEN GetSym;
 LOOP statement;
 IF sym = semicolon THEN GetSym
 ELSIF sym = end THEN GetSym; EXIT
-ELSIF sym < canst THEN err(17)
+ELSIF sym < const THEN err(17)
 ELSE err(17); EXIT
 END
 END
 ELSIF sym = if THEN
 GetSym; condition;
 IF sym = then THEN GetSym ELSE err(16) END;
-LD := Label(); Gen(7,D,D); statement; fixup(LD)
-ELSIF sym = while THEN LD := Label();
-GetSym; condition; L1 := Label(); Gen(7,D,D);
+L0 := Label(); Gen(7,0,0); statement; fixup(L0)
+ELSIF sym = while THEN L0 := Label();
+GetSym; condition; L1 := Label(); Gen(7,0,0);
 IF sym = do THEN GetSym ELSE err(18) END ;
-statement; Gen(6,D,LD); fixup(L1)
+statement; Gen(6,0,L0); fixup(L1)
 ELSIF sym = read THEN
 GetSym;
 IF sym = ident THEN
 obj := find( id);
 IF obj^.kind = Var THEN
-Gen(1,D,14); Gen(3, curley - obj^.vlev, obj^.vadr)
+Gen(1,0,14); Gen(3, curlev - obj^.vlev, obj^.vadr)
 ELSE err(12)
 END
 ELSE err(14)
 END ;
 GetSym
 ELSIF sym = write THEN
-GetSym; expression; Gen(1,D,15)
+GetSym; expression; Gen(1,0,15)
 END ;
 test(ident, 19)
 END statement;
@@ -209,7 +213,7 @@ END statement;
 PROCEDURE block;
 VAR adr: CARDINAL;
 (*data address*)
-La: CARDINAL;
+L0: CARDINAL;
 hd, obj: ObjPtr;
 (*initial code index*)
 
@@ -219,7 +223,7 @@ BEGIN WriteString("ConstDeclaration"); WriteLn();
 IF sym = ident THEN
 GetSym;
 IF (sym = eql) OR (sym = becomes) THEN
-IF sym = becomes THEN err(l) END;
+IF sym = becomes THEN err(1) END;
 GetSym;
 IF sym = number THEN
 obj := NewObj(Const); obj^.val := num; GetSym
@@ -236,19 +240,19 @@ VAR obj: ObjPtr;
 BEGIN WriteString("VarDeclaration"); WriteLn();
 IF sym = ident THEN
 obj := NewObj(Var); GetSym;
-obj^.vlev := curley; obj^.vadr := adr; adr := adr+1
+obj^.vlev := curlev; obj^.vadr := adr; adr := adr+1
 ELSE err(4)
 END
 END VarDeclaration;
 
 BEGIN WriteString("block"); WriteLn();
-curley := curley + 1; adr := 3;
+curlev := curlev + 1; adr := 3;
 ALLOCATE(hd, TSIZE(Object));
-WITH hdt DO
+WITH hd^ DO
 kind := Header; next := NIL; last := hd;
 name := 0; down := topScope
 END ;
-topScope := hd; La := Label(); Gen(6,O,O); (*jump*)
+topScope := hd; L0 := Label(); Gen(6,0,0); (*jump*)
 IF sym = const THEN GetSym;
 LOOP ConstDeclaration;
 IF sym = comma THEN GetSym
@@ -271,20 +275,20 @@ WHILE sym = procedure DO
 GetSym;
 IF sym = ident THEN GetSym ELSE err(4) END;
 obj := NewObj(Proc);
-obj^.plev := curley; obj^.padr := Label();
+obj^.plev := curlev; obj^.padr := Label();
 IF sym = semicolon THEN GetSym ELSE err(5) END;
 block;
 IF sym = semicolon THEN GetSym ELSE err(5) END
 END ;
-fixup(LO); Gen(5,0,adr); (*enter*)
+fixup(L0); Gen(5,0,adr); (*enter*)
 statement;
 Gen(1,0,0); (*return*)
-topScope := topScopet.down; curley := curley - 1
+topScope := topScope^.down; curlev := curlev - 1
 END block;
 
 PROCEDURE Parse;
-BEGIN noerr := TRUE; topScope := NIL; curley := 0;
-Write(14C); ResetHeap(bottom);
+BEGIN noerr := TRUE; topScope := NIL; curlev := 0;
+Write(14C); (* GM ResetHeap(bottom); *)
 GetSym; block;
 IF sym # period THEN err(9) END
 END Parse;
