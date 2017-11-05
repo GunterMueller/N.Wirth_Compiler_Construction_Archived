@@ -1,6 +1,6 @@
 DEFINITION MODULE PL0Scanner; 
 
-(* GM FROM FileSystem IMPORT File; *)
+(* GM  FROM FileSystem IMPORT File; *) 
 FROM BasicIO IMPORT File; 
 
 TYPE  Symbol = 
