@@ -50,11 +50,11 @@ IF Diff(id, obj^.name) = 0 THEN err(25) END;
 obj := obj^.next
 END ;
 (*now enter new object into list*)
-ALLOCATE(obj, TSIZE(Object));
+ALLOCATE(obj);
 WITH obj^ DO
 name := id; kind := k; next := NIL
 END ;
-KeepId; topScopet.lastt.next := obj; topScopet.last := obj;
+KeepId; topScope^.last^.next := obj; topScope^.last := obj;
 RETURN obj
 END NewObj;
 
@@ -62,19 +62,20 @@ PROCEDURE find(id: CARDINAL): ObjPtr;
 VAR hd, obj: ObjPtr;
 BEGIN hd := topScope;
 WHILE hd # NIL DO
-obj := hdt.next;
+obj := hd^.next;
 WHILE obj # NIL DO
-IF Diff(id. obj^.name) = 0 THEN RETURN obj
+IF Diff(id, obj^.name) = 0 THEN RETURN obj
 ELSE obj := obj^.next
 END
 END ;
-hd := hdt.down
+hd := hd^.down
 END ;
 err(11); RETURN undef
 END find;
 
 PROCEDURE expression;
 VAR addop: Symbol;
+
 PROCEDURE factor;
 VAR obj: ObjPtr;
 BEGIN WriteString("factor"); WriteLn();
