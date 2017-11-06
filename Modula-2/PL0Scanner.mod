@@ -32,7 +32,8 @@ FROM  InOut IMPORT Read, ReadInt, Write, WriteLn, WriteInt, WriteCard ;
          LOOP 
            IF  w = 0 THEN  RETURN 0 
            ELSIF buf[u] #  buf[v] THEN 
-              RETURN INTEGER(buf[u]) - INTEGER(buf[v]) 
+              (* GM RETURN INTEGER(buf[u]) - INTEGER(buf[v])  *)
+              RETURN ORD(buf[u]) - ORD(buf[v]) 
            ELSE u  :=  u+1; v  :=  v+1; w :=  w-1 
            END 
          END 
@@ -75,7 +76,8 @@ FROM  InOut IMPORT Read, ReadInt, Write, WriteLn, WriteInt, WriteCard ;
              UNTIL (ch  < "0") OR  ("9" < ch)  & (CAP(ch) < "A") OR 
                   ("Z"  < CAP(ch)); 
               j := 0;  k  := 0; 
-              REPEAT d  :=  CARDINAL(dig[j]) - 60B; 
+              (* REPEAT d  :=  CARDINAL(dig[j]) - 60B;  *)
+              REPEAT d  :=  ORD(dig[j]) - 60B; 
                IF  (d  < 10)  & ((maxCard-d) DIV  10  >= k)  THEN  k  := 10*k  + d 
                  ELSE Mark(30); k  :=  0 
                END ; 
