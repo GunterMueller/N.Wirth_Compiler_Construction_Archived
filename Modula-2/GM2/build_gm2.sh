@@ -10,6 +10,6 @@ rm *.sym
 for x in *.def
 do
   echo $x
-  xc $x
+  gm2 -g -I. $x
 done
 

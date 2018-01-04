@@ -3,10 +3,7 @@ IMPLEMENTATION MODULE PL0Interpreter;
                          ReadInt, Write, WriteLn, WriteInt, Invert, C1oseTextWindow; 
 *)
 
-(* Mocka *)
-(* FROM  InOut IMPORT ReadInt, Write, WriteLn, WriteInt;  *)
-(* Mocka *)
-(* FROM  FileIO IMPORT ReadInt, Write, WriteLn, WriteInt;  *)
+FROM  InOut IMPORT ReadInt, Write, WriteLn, WriteInt; 
 
 (* GM VAR win: Window;  *)
 
@@ -55,12 +52,12 @@ CONST stacksize = 1000;
                         15: (* GM  WriteInt(win, s[t], 7); WriteLn(win); *)  t  :=  t-1 
                        END | 
 
-                 2:  t := t+1; s[t] :=  s[base(l)+INT(a)] | 
-                 3:  s[base(l)+INT(a)] :=  s[t]; t :=  t-1 | 
+                 2:  t := t+1; s[t] :=  s[base(l)+INTEGER(a)] | 
+                 3:  s[base(l)+INTEGER(a)] :=  s[t]; t :=  t-1 | 
                  4:  (*generate new  block mark*) 
                      s[t+1] :=  base(l); s[t+2] :=  b;  s[t+3] :=  p; 
                      b := t+1; p := a |
-                 5:  t  :=  t  +  INT(a) | 
+                 5:  t  :=  t  +  INTEGER(a) | 
                  6:  p  := a  | 
                  7:  IF  s[t] = 0 THEN  p:= a  END ; 
                      t :=  t-1 

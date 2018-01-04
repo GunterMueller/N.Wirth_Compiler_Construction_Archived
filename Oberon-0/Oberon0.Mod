@@ -21,9 +21,9 @@ MODULE Oberon0;
       f: Files.File;
   BEGIN
     (* n := OSG.VarParam(); *)
-    IF n < 2 THEN
+     IF Args.argc < 2 THEN
       Help
-    ELSE
+    ELSE 
     (*   ARGS(0, folder); *)
       FOR i := 1 TO n-1 DO
     (*    ARGS(i, arg); *)
@@ -35,6 +35,6 @@ MODULE Oberon0;
        (*  OSP.Compile(arg, newSym, folder) *)
         OSP.Compile()
       END
-    END
+     END 
   END Main;
 END Oberon0.

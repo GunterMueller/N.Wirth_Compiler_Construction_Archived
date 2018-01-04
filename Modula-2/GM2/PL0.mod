@@ -8,11 +8,11 @@ MODULE PL0; (*NW WS 83/84*)
 OpenTextWindow, Write, WriteLn, WriteString,
 CloseTextWindow; *)
 
-FROM  InOut IMPORT Read, Write, WriteLn, WriteString,CloseInput;
-FROM FileSys IMPORT Exists;
+FROM  InOut IMPORT Read, Write, WriteLn, WriteString;
+FROM BasicIO IMPORT Accessible,Close,OpenInput;
 
 
-FROM PL0Scanner IMPORT InitScanner, source, CloseScanner; 
+FROM PL0Scanner IMPORT InitScanner, source, CloseScanner;
 FROM PL0Parser IMPORT Parse, noerr, EndParser;
 FROM PL0Generator IMPORT InitGenerator, EndGenerator;
 FROM PL0Interpreter IMPORT Interpret, EndInterpreter;
@@ -49,9 +49,8 @@ BEGIN
  (* GM OpenTextWindow(win, 0, 0, 704, 66, "DIALOG"); *)
 LOOP WriteString("in> "); ReadName;
 IF ch = 33C THEN EXIT END ;
-IF Exists(FileName) THEN
-(* InitScanner; InitGenerator; Parse; CloseInput(source); *)
-InitScanner; InitGenerator; Parse; CloseInput();
+IF Accessible(FileName, FALSE) THEN
+InitScanner; InitGenerator; Parse; Close(source);
 IF noerr THEN
 WriteString(" interpreting"); Interpret
 ELSE WriteString(" incorrect")
@@ -64,4 +63,3 @@ END ;
 CloseScanner; EndParser; EndGenerator; EndInterpreter;
 (* CloseTextWindow(win) *)
 END PL0.
-
