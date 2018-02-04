@@ -12,7 +12,7 @@ INC(argnum);
      Args.Get(argnum, name) 
   END;
   Out.String("Oberon-07 compiler v1.0"); Out.Ln;
-  Out.String("Argnum =",argnum); Out.Ln;
+  Out.String("Argnum ="); Out.Ten(argnum); Out.Ln;
 
 END GMTEST.
 
