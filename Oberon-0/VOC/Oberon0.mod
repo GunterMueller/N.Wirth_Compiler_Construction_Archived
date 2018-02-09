@@ -1,5 +1,5 @@
 MODULE Oberon0;
-  IMPORT Args , Strings, Out, Files, Texts, Oberon, OSS, OSG, OSP;
+  IMPORT SYSTEM, Args,  Out, Files, Texts, Oberon, OSS, OSG, OSP, Strings := oocStrings; (* Console *)
 
   PROCEDURE Help;
   BEGIN
@@ -19,9 +19,16 @@ MODULE Oberon0;
       folder, arg: ARRAY 200 OF CHAR;
       newSym: BOOLEAN;
       f: Files.File;
+      argnum : LONGINT;
+      count: INTEGER;
+     argvec :  SYSTEM.ADDRESS;
+     currvar : ARRAY 32 OF CHAR;
   BEGIN
-    (* n := OSG.VarParam(); *)
-     IF Args.argc < 2 THEN
+     argnum := Args.argc; 
+     argvec := Args.argv;
+     count := 0;
+      
+     IF argnum < 2 THEN
       Help
     ELSE 
     (*   ARGS(0, folder); *)

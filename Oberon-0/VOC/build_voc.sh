@@ -9,12 +9,12 @@ rm ./Oberon0
 
 
 #
-voc -V RISC.Mod 
-voc -V OSS.Mod 
-voc -V OSG.Mod
-voc -V OSP.Mod
-#voc -m OSP.Mod
-#voc -m OSG.Mod
-#voc -m OSS.Mod 
-voc -m -V Oberon0.Mod
-#voc -m RISC.Mod 
+voc -V RISC.mod 
+voc -V OSS.mod 
+voc -V OSG.mod
+voc -V OSP.mod
+#voc -m OSP.mod
+#voc -m OSG.mod
+#voc -m OSS.mod 
+voc -m -V Oberon0.mod
+#voc -m RISC.mod 
