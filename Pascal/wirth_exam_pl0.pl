@@ -1,61 +1,62 @@
-CONST
+
+const
   m =  7,
   n = 85;
 
-VAR
+var
   x, y, z, q, r;
 
-PROCEDURE multiply;
-VAR a, b;
+procedure multiply;
+var a, b;
 
-BEGIN
+begin
   a := x;
   b := y;
   z := 0;
-  WHILE b > 0 DO BEGIN
-    IF ODD b THEN z := z + a;
+  while b > 0 do begin
+    if odd b then z := z + a;
     a := 2 * a;
     b := b / 2
-  END
-END;
+  end
+end;
 
-PROCEDURE divide;
-VAR w;
-BEGIN
+procedure divide;
+var w;
+begin
   r := x;
   q := 0;
   w := y;
-  WHILE w <= r DO w := 2 * w;
-  WHILE w > y DO BEGIN
+  while w [ r do w := 2 * w;
+  while w > y do begin
     q := 2 * q;
     w := w / 2;
-    IF w <= r THEN BEGIN
+    if w [ r then begin
       r := r - w;
       q := q + 1
-    END
-  END
-END;
+    end
+  end
+end;
 
-PROCEDURE gcd;
-VAR f, g;
-BEGIN
+procedure gcd;
+var f, g;
+begin
   f := x;
   g := y;
-  WHILE f # g DO BEGIN
-    IF f < g THEN g := g - f;
-    IF g < f THEN f := f - g
-  END;
+  while f # g do begin
+    if f < g then g := g - f;
+    if g < f then f := f - g
+  end;
   z := f
-END;
+end;
 
-BEGIN
+begin
   x := m;
   y := n;
-  CALL multiply;
+  call multiply;
   x := 25;
   y :=  3;
-  CALL divide;
+  call divide;
   x := 84;
   y := 36;
-  CALL gcd
-END.
+  call gcd
+end.
