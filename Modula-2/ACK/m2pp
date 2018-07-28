@@ -1,0 +1,120 @@
+#!/bin/sh
+#
+# Simuliere Präprozessor für MODULA-2
+#
+# Aufruf: m2pp [YES|NO] [mocka|gpm] inputfile
+#
+# 
+# $1 = "YES", dann ist Debug Mode angesagt, sonst nicht
+# $2 steuert, ob für den mocka oder den gardenspoint Modula 2
+#    compiler uebersetzt werden soll.
+#
+# Das Ergebnis wird in die Standradausgabe geschrieben.
+#
+progname=`basename $0`
+
+if [ $# -ne 3 ]
+then
+	echo "Usage: $progname [YES|NO] [mocka|gpm] inputfile" >&2
+	exit;
+fi
+
+if [ ! -r $3 ]
+then
+	echo "Error in $progname: File $3 not readable" >&2
+	exit;
+fi
+
+gawk -v DEBUG=$1 -v apo='"' -v comp=$2 -v ACTFILE=$3 '
+function writeLineFrom(start, end){
+	for (i=start; i<end; i++) {
+		printf("%s ", $i);
+	}
+}
+/^#ifdebug/	{
+		if ( DEBUG == "YES" ) {
+			printf("\n");
+		} else {
+			printf("(* --- Wegen NICHT DEBUG auskommentiert ---\n");
+		}
+		next;
+		}
+/^#else/	{
+		if ( DEBUG == "YES" ) {
+			printf("(* --- Wegen DEBUG auskommentiert ---\n");
+		} else {
+			printf("   --- Wegen NICHT DEBUG auskommentiert --- *)\n");
+		}
+		next;
+		}
+/^#enddebug/	{
+		if ( DEBUG == "YES" ) {
+			printf("   --- Wegen DEBUG auskommentiert --- *)\n");
+		} else {
+			printf("\n");
+		}
+		next;
+		}
+/^#ifgpm/	{
+		if ( comp == "gpm" ) {
+			printf("\n");
+			next;
+		} else {
+			printf("(* vvv Nicht für gpm\n");
+			next;
+		}
+		}
+/^#endgpm/	{
+		if ( comp == "gpm" ) {
+			printf("\n");
+			next;
+		} else {
+			printf("   ^^^ Nicht für gpm *)\n");
+			next;
+		}
+		}
+/^#ifmocka/	{
+		if ( comp == "mocka" ) {
+			printf("\n");
+			next;
+		} else {
+			printf("(* vvv Nicht für mocka\n");
+			next;
+		}
+		}
+/^#endmocka/	{
+		if ( comp == "mocka" ) {
+			printf("\n");
+			next;
+		} else {
+			printf("   ^^^ Nicht für mocka *)\n");
+			next;
+		}
+		}
+/assert/	{
+		if ( DEBUG == "YES" ) {
+			if ($2 == "("){
+				start = 3;
+			} else {
+				start = 2;
+			}
+			printf("IF NOT(");
+			writeLineFrom(start, NF);
+			printf(") THEN WriteString(%sAssertion %s);", apo, apo);
+			printf("WriteString(%s", apo);
+			writeLineFrom(start, NF);
+			printf("%s);", apo);
+			printf("WriteString(%sin file %s);", apo, apo);
+			printf("WriteString(%s", apo);
+			printf("%s", ACTFILE);
+			printf("%s);", apo);
+			printf("WriteString(%s line number %d%s);",
+				apo, NR, apo );
+			printf("WriteString(%s failed!%s);WriteLn;HALT;END;",
+				apo, apo);
+		}
+		printf("\n");
+		next;
+		}
+//
+' < $3

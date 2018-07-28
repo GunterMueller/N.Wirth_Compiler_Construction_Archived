@@ -1,0 +1,24 @@
+1 Verwende "=" anstatt ":=" !
+2 Nach "=" muss eine Zahl folgen.
+3 Nach dem Bezeichner muss" =" folgen.
+4 Nach CONST, VAR, oder PROCEDURE muss ein Bezeichner folgen.
+5 Strichpunkt (oder Komma) fehlt
+6 Ein Ausdruck kann nicht mit diesem Symbol beginnen.
+7 Schliessende Klammer fehlt
+8 Der vorangehende Faktor kann nicht mit diesem Symbol enden.
+9 Hier wird ein Punkt erwartet
+10 Inkorrektes Symbol in einer Anweisung.
+11 Dieser Bezeichner ist nicht vereinbart
+12 Zuweisung zu Konstanten und Prozeduren sind nicht erlaubt.
+13 Zuweisungsoperator ist ": =".
+14 Nach "call" muss ein Bezeichner folgen.
+15 Aufruf (call) einer Konstanten oder Variablen ist nicht erlaubt
+16 Hier wird THEN erwartet
+17 Hier wird ";" oder END erwartet.
+18 Hier wird DO erwartet.
+19 Auf diese Anweisung folgt ein inkorrekt verwendetes Symbol.
+20 Hier wird eine Relation erwartet.
+21 Ein A usdruck darf keinen Prozedurbezeichner enthalten.
+25 Ein Bezeichner darf nur einmal vereinbart werden.
+30 Zahl ist zu gross.
+
