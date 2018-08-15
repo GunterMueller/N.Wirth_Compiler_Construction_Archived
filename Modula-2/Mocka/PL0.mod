@@ -8,7 +8,7 @@ MODULE PL0; (*NW WS 83/84*)
 OpenTextWindow, Write, WriteLn, WriteString,
 CloseTextWindow; *)
 
-FROM  InOut IMPORT Read, Write, WriteLn, WriteString;
+FROM InOut IMPORT Read, Write, WriteLn, WriteString;
 FROM FileIO IMPORT Open, Close, Okay;
 
 
