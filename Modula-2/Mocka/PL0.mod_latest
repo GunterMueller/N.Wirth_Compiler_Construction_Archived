@@ -9,7 +9,7 @@ OpenTextWindow, Write, WriteLn, WriteString,
 CloseTextWindow; *)
 
 FROM InOut IMPORT Read, Write, WriteLn, WriteString;
-FROM BasicIO IMPORT Accessible,Close,OpenInput;
+FROM FileIO IMPORT Open, Close, Okay;
 
 
 FROM PL0Scanner IMPORT InitScanner, source, CloseScanner;
@@ -50,7 +50,8 @@ BEGIN
   LOOP WriteString("in> ");
        ReadName;
    IF ch = 33C THEN EXIT END ;
-   IF Accessible(FileName, FALSE) THEN
+      Open(source,FileName, FALSE); 
+   IF Okay THEN
       InitScanner;
       InitGenerator;
       Parse;
