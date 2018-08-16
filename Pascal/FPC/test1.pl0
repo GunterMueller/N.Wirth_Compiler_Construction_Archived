@@ -1,0 +1,18 @@
+(* groesster gemeinsamer Teiler zweier Zahlen *)
+(*$T+ *)
+
+VAR i   : INTEGER;
+VAR a,b : INTEGER;
+
+PROCEDURE reduce;
+BEGIN
+   IF a > b THEN a := a - b;
+   IF b > a THEN b := b - a;
+END;
+
+BEGIN
+   ?a;
+   ?b;
+   WHILE  a#b DO CALL reduce;
+   !a
+END.
