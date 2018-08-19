@@ -1,5 +1,19 @@
 MODULE OSG; (* NW 19.12.94 / 20.10.07 / 26.10.2013*) 
-  IMPORT SYSTEM, Files, Texts, Oberon, OSS, RISC;
+(* Modula OSG
+ *  From N. Wirth: Compiler Construction
+ * Revised 2005 edition from www.ethoberon.ethz.ch/WirthPubl/CBEAll.pdf
+ * Ported to Oxford Oberon-2 Compiler 3.0.7 forlinux
+ * 17.08.2018 GM
+ * Changes from the original:
+ * - Replaced module Texts with Files, and the Reader R with a file handle F. 
+ *   - Texts.OpenReader(R, T, pos) -> F := Files.Open(name, "r")
+ *   - Texts.Read(R, ch) -> Files.ReadChar(F, ch)
+ *   - R.eot -> Files.eof(F)
+ * - Replaced output Text with stdout using module Out
+ *)
+
+(* IMPORT SYSTEM, Files, Texts, Oberon, OSS, RISC; *)
+IMPORT SYSTEM, Files, Out, OSS, RISC; (* GM *)
 
   CONST MemSize = 8192;
     (* class / mode*) Head* = 0;

@@ -1,5 +1,19 @@
 MODULE OSS; (* NW 19.9.93 / 17.11.94 / 1.11.2013*)
-  IMPORT Texts, Oberon;
+(* Modula OSS
+ *  From N. Wirth: Compiler Construction
+ * Revised 2005 edition from www.ethoberon.ethz.ch/WirthPubl/CBEAll.pdf
+ * Ported to Oxford Oberon-2 Compiler 3.0.7 forlinux
+ * 17.08.2018 GM
+ * Changes from the original:
+ * - Replaced module Texts with Files, and the Reader R with a file handle F. 
+ *   - Texts.OpenReader(R, T, pos) -> F := Files.Open(name, "r")
+ *   - Texts.Read(R, ch) -> Files.ReadChar(F, ch)
+ *   - R.eot -> Files.eof(F)
+ * - Replaced output Text with stdout using module Out
+ *)
+
+  (* IMPORT Texts, Oberon; *)
+  IMPORT  Files, Out;
 
   CONST IdLen* = 16; KW = 34; maxInt = 2147483647;
 
