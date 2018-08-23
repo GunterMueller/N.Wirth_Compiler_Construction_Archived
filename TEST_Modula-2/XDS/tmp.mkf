@@ -1,0 +1,41 @@
+M	= tmp.mkf
+
+TSLIBS	= 
+
+INCL	= .
+
+XDSLIB	= /usr/local/xds/lib/x86/libxds.a
+
+
+TARGET	= PL0
+
+
+CDEFS	= -D_unix -D_linux -DX2C_no_spawn -DX2C_strcmp
+CF	= -O2 -g -I$(INCL) -c
+CC	= gcc
+OBJFF	=
+LFLAGS	=
+
+
+# ------------------ objects enumeration ------------------
+#                    -------------------
+
+OBJ= \
+	FileIO.o \
+	PL0.o \
+	PL0Generator.o \
+	PL0Interpreter.o \
+	PL0Parser.o \
+	PL0Scanner.o
+# ------------------- target make rules -------------------
+#                     -----------------
+
+$(TARGET) : $(OBJ) $(XDSLIB)
+	gcc -m32 $(LFLAGS) -o $(TARGET) $(OBJ) $(XLIBS) $(TSLIBS) $(XDSLIB) $(XMACLIBS) -lm -L/usr/lib32 -lncurses
+
+# ----------------- Dependency information ----------------
+#                   ----------------------
+
+
+# end of makefile
+

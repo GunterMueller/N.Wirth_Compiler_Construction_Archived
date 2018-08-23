@@ -1,0 +1,27 @@
+DEFINITION MODULE PL0Scanner; 
+
+(* GM  FROM FileSystem IMPORT File; *) 
+FROM FileIO IMPORT File; 
+
+TYPE  Symbol = 
+             (null, odd, times, div, plus, minus, 
+              eql, neq, lss, leq,  gtr, geq, 
+              comma, rparen, then, do,  lparen,
+              becomes, number, ident, semicolon, end, 
+              call, if, while, begin, read, write, 
+              const, var, procedure, period, eof); 
+
+VAR  sym: Symbol; (*last symbol read*) 
+            id: CARDINAL; (*character buffer index*) 
+            num: CARDINAL; (*last number read*) 
+            source: File; 
+
+ PROCEDURE Diff(u,v: CARDINAL): INTEGER; 
+            (*difference between identifiers at buf[u] and  buf[v]*) 
+ PROCEDURE KeepId; 
+ PROCEDURE Mark(n: CARDINAL); (*mark error n  in  source text*) 
+ PROCEDURE GetSym; (*get next symbol; results: sym, id, num*) 
+ PROCEDURE InitScanner; 
+ PROCEDURE CloseScanner; 
+
+END  PL0Scanner. 
