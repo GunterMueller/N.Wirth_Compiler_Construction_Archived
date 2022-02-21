@@ -9,16 +9,11 @@ rm ./Pl0
 
 
 #
-for x in FileIO.def PL0*.def
+
+for x in OSG.ob2 OSP.ob2 OSS.ob2 Oberon0.ob2 RISC.ob2
 do
   echo $x
   xc +GENDEBUG $x
 done
 
-for x in FileIO.mod PL0Generator.mod  PL0Interpreter.mod    PL0Parser.mod  PL0ParserNew.mod  PL0Scanner.mod
-do
-  echo $x
-  xc +GENDEBUG $x
-done
-
-xc  =make PL0
+xc  =make Oberon0

@@ -1,10 +1,8 @@
 DEFINITION MODULE PL0Scanner; 
 
 (* GM  FROM FileSystem IMPORT File; *) 
-(* MOCKA *)
-(* FROM BasicIO IMPORT File;  *)
-(* MOCKA *)
-FROM FileIO IMPORT File; 
+(* Use COCO/R FileIO module *)
+FROM FileIO IMPORT File;  
 
 TYPE  Symbol = 
              (null, odd, times, div, plus, minus, 

@@ -1,6 +1,6 @@
 	.comm PL0Interpreter_s, 12288
 	.text
-	.stabs "/home/gunter/GM_LANGUAGES/COMPILER_CONSTRUCTION/N.Wirth_Compiler_Construction/PL_0/Modula-2/Mocka/",100,0,0,.LBB0
+	.stabs "/home/gunter/GM_Programming/COMPILER/N.Wirth_Compiler_Construction/PL_0/Modula-2/Mocka/",100,0,0,.LBB0
 	.stabs "PL0Interpreter.mod",100,0,0,.LBB0
 .LBB0:
 	.stabs "BOOLEAN:t1=eTRUE:1,FALSE:0,;",0x80,0,0,0
@@ -19,24 +19,53 @@
 	.stabs "VOID:t16=16",0x80,0,0,0
 	.stabs "ADDRESS:t15=*16",0x80,0,0,0
 	.stabs "PROC:t12=*f16;",0x80,0,0,0
-	.globl	InOut_EOF
-	.globl	InOut_Done
-	.globl	InOut_WriteBf
-	.globl	InOut_WriteLn
-	.globl	InOut_WriteLongReal
-	.globl	InOut_WriteReal
-	.globl	InOut_WriteInt
-	.globl	InOut_WriteHex
-	.globl	InOut_WriteOct
-	.globl	InOut_WriteCard
-	.globl	InOut_WriteString
-	.globl	InOut_Write
-	.globl	InOut_ReadLongReal
-	.globl	InOut_ReadReal
-	.globl	InOut_ReadInt
-	.globl	InOut_ReadCard
-	.globl	InOut_ReadString
-	.globl	InOut_Read
+	.globl	FileIO_QuitExecution
+	.globl	FileIO_INT
+	.globl	FileIO_INTL
+	.globl	FileIO_ORDL
+	.globl	FileIO_Compare
+	.globl	FileIO_Concat
+	.globl	FileIO_Extract
+	.globl	FileIO_Assign
+	.globl	FileIO_SLENGTH
+	.globl	FileIO_WriteExecutionTime
+	.globl	FileIO_WriteElapsedTime
+	.globl	FileIO_WriteTime
+	.globl	FileIO_WriteDate
+	.globl	FileIO_WriteBytes
+	.globl	FileIO_WriteCard
+	.globl	FileIO_WriteInt
+	.globl	FileIO_WriteText
+	.globl	FileIO_WriteString
+	.globl	FileIO_WriteLn
+	.globl	FileIO_Write
+	.globl	FileIO_ReadBytes
+	.globl	FileIO_ReadCard
+	.globl	FileIO_ReadInt
+	.globl	FileIO_ReadToken
+	.globl	FileIO_ReadLine
+	.globl	FileIO_ReadString
+	.globl	FileIO_ReadLn
+	.globl	FileIO_ReadAgain
+	.globl	FileIO_Read
+	.globl	FileIO_EndOfFile
+	.globl	FileIO_EndOfLine
+	.globl	FileIO_Rewrite
+	.globl	FileIO_Reset
+	.globl	FileIO_SetPos
+	.globl	FileIO_GetPos
+	.globl	FileIO_Length
+	.globl	FileIO_ChangeExtension
+	.globl	FileIO_AppendExtension
+	.globl	FileIO_ExtractFileName
+	.globl	FileIO_ExtractDirectory
+	.globl	FileIO_Delete
+	.globl	FileIO_CloseAll
+	.globl	FileIO_Close
+	.globl	FileIO_SearchFile
+	.globl	FileIO_Open
+	.globl	FileIO_GetEnv
+	.globl	FileIO_NextParameter
 	.globl	PL0Interpreter
 	.globl	PL0Interpreter_EndInterpreter
 	.globl	PL0Interpreter_Interpret
@@ -48,10 +77,10 @@ PL0Interpreter_EndInterpreter:
 	movl	%esp,%ebp
 	subl	$.Lab1, %esp
 .LN1:
-	.stabn  68,0,69,.LN1-PL0Interpreter_EndInterpreter		# line 69, column 3
+	.stabn  68,0,73,.LN1-PL0Interpreter_EndInterpreter		# line 73, column 3
 .LBB1:
 .LN2:
-	.stabn  68,0,70,.LN2-PL0Interpreter_EndInterpreter		# line 70, column 0
+	.stabn  68,0,74,.LN2-PL0Interpreter_EndInterpreter		# line 74, column 0
 .LBE1:
 	leave
 	ret
@@ -65,17 +94,17 @@ PL0Interpreter_Interpret_base:
 	movl	%esp,%ebp
 	subl	$.Lab2, %esp
 .LN3:
-	.stabn  68,0,18,.LN3-PL0Interpreter_Interpret_base		# line 18, column 3
+	.stabn  68,0,21,.LN3-PL0Interpreter_Interpret_base		# line 21, column 17
 .LBB2:
 .LN4:
-	.stabn  68,0,18,.LN4-PL0Interpreter_Interpret_base		# line 18, column 13
+	.stabn  68,0,21,.LN4-PL0Interpreter_Interpret_base		# line 21, column 27
 	movl	DISPLAY_,%eax
 	movl	-12(%eax),%eax
 	movl	%eax,-8(%ebp) 
 	jmp	.Lab3
 .Lab4:
 .LN5:
-	.stabn  68,0,20,.LN5-PL0Interpreter_Interpret_base		# line 20, column 16
+	.stabn  68,0,23,.LN5-PL0Interpreter_Interpret_base		# line 23, column 24
 	movl	DISPLAY_,%ebx
 	movl	-8(%ebp),%eax
 	.data
@@ -87,20 +116,20 @@ PL0Interpreter_Interpret_base:
 	movl	-4028(%ebx,%eax,4),%eax
 	movl	%eax,-8(%ebp) 
 .LN6:
-	.stabn  68,0,20,.LN6-PL0Interpreter_Interpret_base		# line 20, column 29
+	.stabn  68,0,23,.LN6-PL0Interpreter_Interpret_base		# line 23, column 37
 	decl	8(%ebp)
 .Lab3:
 .LN7:
-	.stabn  68,0,19,.LN7-PL0Interpreter_Interpret_base		# line 19, column 13
+	.stabn  68,0,22,.LN7-PL0Interpreter_Interpret_base		# line 22, column 26
 	jmp	.Lab4
 .Lab5:
 .LN8:
-	.stabn  68,0,22,.LN8-PL0Interpreter_Interpret_base		# line 22, column 5
+	.stabn  68,0,25,.LN8-PL0Interpreter_Interpret_base		# line 25, column 18
 	movl	-8(%ebp),%eax
 	leave
 	ret
 .LN9:
-	.stabn  68,0,23,.LN9-PL0Interpreter_Interpret_base		# line 23, column 0
+	.stabn  68,0,26,.LN9-PL0Interpreter_Interpret_base		# line 26, column 0
 	call	ReturnErr_
 .LBE2:
 	leave
@@ -120,29 +149,29 @@ PL0Interpreter_Interpret:
 	movl	%ecx,-4(%ebp)
 	movl	%ebp,DISPLAY_+0
 .LN10:
-	.stabn  68,0,25,.LN10-PL0Interpreter_Interpret		# line 25, column 3
+	.stabn  68,0,28,.LN10-PL0Interpreter_Interpret		# line 28, column 15
 .LBB3:
 .LN11:
-	.stabn  68,0,26,.LN11-PL0Interpreter_Interpret		# line 26, column 7
+	.stabn  68,0,29,.LN11-PL0Interpreter_Interpret		# line 29, column 19
 	movl	$0,-16(%ebp) 
 .LN12:
-	.stabn  68,0,26,.LN12-PL0Interpreter_Interpret		# line 26, column 18
+	.stabn  68,0,29,.LN12-PL0Interpreter_Interpret		# line 29, column 30
 	movl	$1,-12(%ebp) 
 .LN13:
-	.stabn  68,0,26,.LN13-PL0Interpreter_Interpret		# line 26, column 28
+	.stabn  68,0,29,.LN13-PL0Interpreter_Interpret		# line 29, column 40
 	movl	$0,-8(%ebp) 
 .LN14:
-	.stabn  68,0,27,.LN14-PL0Interpreter_Interpret		# line 27, column 10
+	.stabn  68,0,30,.LN14-PL0Interpreter_Interpret		# line 30, column 22
 	movl	$0,-4024(%ebp) 
 .LN15:
-	.stabn  68,0,27,.LN15-PL0Interpreter_Interpret		# line 27, column 23
+	.stabn  68,0,30,.LN15-PL0Interpreter_Interpret		# line 30, column 35
 	movl	$0,-4020(%ebp) 
 .LN16:
-	.stabn  68,0,27,.LN16-PL0Interpreter_Interpret		# line 27, column 36
+	.stabn  68,0,30,.LN16-PL0Interpreter_Interpret		# line 30, column 48
 	movl	$0,-4016(%ebp) 
 .Lab8:
 .LN17:
-	.stabn  68,0,28,.LN17-PL0Interpreter_Interpret		# line 28, column 15
+	.stabn  68,0,31,.LN17-PL0Interpreter_Interpret		# line 31, column 27
 	movl	-8(%ebp),%eax
 	.data
 	.align 4
@@ -159,12 +188,12 @@ PL0Interpreter_Interpret:
 	repz
 	movsl
 .LN18:
-	.stabn  68,0,28,.LN18-PL0Interpreter_Interpret		# line 28, column 31
+	.stabn  68,0,31,.LN18-PL0Interpreter_Interpret		# line 31, column 43
 	incl	-8(%ebp)
 	leal	-28(%ebp),%eax
 	movl	%eax,-4032(%ebp) 
 .LN19:
-	.stabn  68,0,30,.LN19-PL0Interpreter_Interpret		# line 30, column 10
+	.stabn  68,0,33,.LN19-PL0Interpreter_Interpret		# line 33, column 20
 	movl	-4032(%ebp),%eax
 	movl	(%eax),%eax
 	.data
@@ -186,10 +215,10 @@ PL0Interpreter_Interpret:
 	jmp	*.Lab21(,%eax,4)
 .Lab20:
 .LN20:
-	.stabn  68,0,31,.LN20-PL0Interpreter_Interpret		# line 31, column 21
+	.stabn  68,0,34,.LN20-PL0Interpreter_Interpret		# line 34, column 27
 	incl	-16(%ebp)
 .LN21:
-	.stabn  68,0,31,.LN21-PL0Interpreter_Interpret		# line 31, column 35
+	.stabn  68,0,34,.LN21-PL0Interpreter_Interpret		# line 34, column 41
 	movl	-16(%ebp),%ebx
 	.data
 	.align 4
@@ -203,7 +232,7 @@ PL0Interpreter_Interpret:
 	jmp	.Lab12
 .Lab19:
 .LN22:
-	.stabn  68,0,32,.LN22-PL0Interpreter_Interpret		# line 32, column 20
+	.stabn  68,0,35,.LN22-PL0Interpreter_Interpret		# line 35, column 26
 	movl	-4032(%ebp),%eax
 	movl	8(%eax),%eax
 	.data
@@ -233,12 +262,12 @@ PL0Interpreter_Interpret:
 	jmp	*.Lab41(,%eax,4)
 .Lab40:
 .LN23:
-	.stabn  68,0,33,.LN23-PL0Interpreter_Interpret		# line 33, column 35
+	.stabn  68,0,37,.LN23-PL0Interpreter_Interpret		# line 37, column 39
 	movl	-12(%ebp),%eax
  	subl	$1,%eax 
 	movl	%eax,-16(%ebp) 
 .LN24:
-	.stabn  68,0,33,.LN24-PL0Interpreter_Interpret		# line 33, column 45
+	.stabn  68,0,37,.LN24-PL0Interpreter_Interpret		# line 37, column 49
 	movl	$3,%eax
  	addl	-16(%ebp),%eax 
 	.data
@@ -250,7 +279,7 @@ PL0Interpreter_Interpret:
 	movl	-4028(%ebp,%eax,4),%eax
 	movl	%eax,-8(%ebp) 
 .LN25:
-	.stabn  68,0,33,.LN25-PL0Interpreter_Interpret		# line 33, column 58
+	.stabn  68,0,37,.LN25-PL0Interpreter_Interpret		# line 37, column 62
 	movl	$2,%eax
  	addl	-16(%ebp),%eax 
 	.data
@@ -264,7 +293,7 @@ PL0Interpreter_Interpret:
 	jmp	.Lab24
 .Lab39:
 .LN26:
-	.stabn  68,0,34,.LN26-PL0Interpreter_Interpret		# line 34, column 30
+	.stabn  68,0,38,.LN26-PL0Interpreter_Interpret		# line 38, column 34
 	movl	-16(%ebp),%ebx
 	.data
 	.align 4
@@ -285,10 +314,10 @@ PL0Interpreter_Interpret:
 	jmp	.Lab24
 .Lab38:
 .LN27:
-	.stabn  68,0,35,.LN27-PL0Interpreter_Interpret		# line 35, column 27
+	.stabn  68,0,39,.LN27-PL0Interpreter_Interpret		# line 39, column 31
 	decl	-16(%ebp)
 .LN28:
-	.stabn  68,0,35,.LN28-PL0Interpreter_Interpret		# line 35, column 40
+	.stabn  68,0,39,.LN28-PL0Interpreter_Interpret		# line 39, column 44
 	movl	-16(%ebp),%ecx
 	.data
 	.align 4
@@ -317,10 +346,10 @@ PL0Interpreter_Interpret:
 	jmp	.Lab24
 .Lab37:
 .LN29:
-	.stabn  68,0,36,.LN29-PL0Interpreter_Interpret		# line 36, column 27
+	.stabn  68,0,40,.LN29-PL0Interpreter_Interpret		# line 40, column 31
 	decl	-16(%ebp)
 .LN30:
-	.stabn  68,0,36,.LN30-PL0Interpreter_Interpret		# line 36, column 40
+	.stabn  68,0,40,.LN30-PL0Interpreter_Interpret		# line 40, column 44
 	movl	-16(%ebp),%ecx
 	.data
 	.align 4
@@ -349,10 +378,10 @@ PL0Interpreter_Interpret:
 	jmp	.Lab24
 .Lab36:
 .LN31:
-	.stabn  68,0,37,.LN31-PL0Interpreter_Interpret		# line 37, column 27
+	.stabn  68,0,41,.LN31-PL0Interpreter_Interpret		# line 41, column 31
 	decl	-16(%ebp)
 .LN32:
-	.stabn  68,0,37,.LN32-PL0Interpreter_Interpret		# line 37, column 40
+	.stabn  68,0,41,.LN32-PL0Interpreter_Interpret		# line 41, column 44
 	movl	-16(%ebp),%ecx
 	.data
 	.align 4
@@ -381,10 +410,10 @@ PL0Interpreter_Interpret:
 	jmp	.Lab24
 .Lab35:
 .LN33:
-	.stabn  68,0,38,.LN33-PL0Interpreter_Interpret		# line 38, column 27
+	.stabn  68,0,42,.LN33-PL0Interpreter_Interpret		# line 42, column 31
 	decl	-16(%ebp)
 .LN34:
-	.stabn  68,0,38,.LN34-PL0Interpreter_Interpret		# line 38, column 40
+	.stabn  68,0,42,.LN34-PL0Interpreter_Interpret		# line 42, column 44
 	movl	-16(%ebp),%esi
 	.data
 	.align 4
@@ -416,7 +445,7 @@ PL0Interpreter_Interpret:
 	jmp	.Lab24
 .Lab34:
 .LN35:
-	.stabn  68,0,39,.LN35-PL0Interpreter_Interpret		# line 39, column 30
+	.stabn  68,0,43,.LN35-PL0Interpreter_Interpret		# line 43, column 34
 	movl	-16(%ebp),%ebx
 	.data
 	.align 4
@@ -444,10 +473,10 @@ PL0Interpreter_Interpret:
 	jmp	.Lab24
 .Lab32:
 .LN36:
-	.stabn  68,0,41,.LN36-PL0Interpreter_Interpret		# line 41, column 27
+	.stabn  68,0,45,.LN36-PL0Interpreter_Interpret		# line 45, column 31
 	decl	-16(%ebp)
 .LN37:
-	.stabn  68,0,41,.LN37-PL0Interpreter_Interpret		# line 41, column 40
+	.stabn  68,0,45,.LN37-PL0Interpreter_Interpret		# line 45, column 44
 	movl	-16(%ebp),%ecx
 	.data
 	.align 4
@@ -483,10 +512,10 @@ PL0Interpreter_Interpret:
 	jmp	.Lab24
 .Lab31:
 .LN38:
-	.stabn  68,0,42,.LN38-PL0Interpreter_Interpret		# line 42, column 27
+	.stabn  68,0,46,.LN38-PL0Interpreter_Interpret		# line 46, column 31
 	decl	-16(%ebp)
 .LN39:
-	.stabn  68,0,42,.LN39-PL0Interpreter_Interpret		# line 42, column 40
+	.stabn  68,0,46,.LN39-PL0Interpreter_Interpret		# line 46, column 44
 	movl	-16(%ebp),%ecx
 	.data
 	.align 4
@@ -522,10 +551,10 @@ PL0Interpreter_Interpret:
 	jmp	.Lab24
 .Lab30:
 .LN40:
-	.stabn  68,0,43,.LN40-PL0Interpreter_Interpret		# line 43, column 27
+	.stabn  68,0,47,.LN40-PL0Interpreter_Interpret		# line 47, column 31
 	decl	-16(%ebp)
 .LN41:
-	.stabn  68,0,43,.LN41-PL0Interpreter_Interpret		# line 43, column 40
+	.stabn  68,0,47,.LN41-PL0Interpreter_Interpret		# line 47, column 44
 	movl	-16(%ebp),%ecx
 	.data
 	.align 4
@@ -561,10 +590,10 @@ PL0Interpreter_Interpret:
 	jmp	.Lab24
 .Lab29:
 .LN42:
-	.stabn  68,0,44,.LN42-PL0Interpreter_Interpret		# line 44, column 27
+	.stabn  68,0,48,.LN42-PL0Interpreter_Interpret		# line 48, column 31
 	decl	-16(%ebp)
 .LN43:
-	.stabn  68,0,44,.LN43-PL0Interpreter_Interpret		# line 44, column 40
+	.stabn  68,0,48,.LN43-PL0Interpreter_Interpret		# line 48, column 44
 	movl	-16(%ebp),%ecx
 	.data
 	.align 4
@@ -600,10 +629,10 @@ PL0Interpreter_Interpret:
 	jmp	.Lab24
 .Lab28:
 .LN44:
-	.stabn  68,0,45,.LN44-PL0Interpreter_Interpret		# line 45, column 27
+	.stabn  68,0,49,.LN44-PL0Interpreter_Interpret		# line 49, column 31
 	decl	-16(%ebp)
 .LN45:
-	.stabn  68,0,45,.LN45-PL0Interpreter_Interpret		# line 45, column 40
+	.stabn  68,0,49,.LN45-PL0Interpreter_Interpret		# line 49, column 44
 	movl	-16(%ebp),%ecx
 	.data
 	.align 4
@@ -639,10 +668,10 @@ PL0Interpreter_Interpret:
 	jmp	.Lab24
 .Lab27:
 .LN46:
-	.stabn  68,0,46,.LN46-PL0Interpreter_Interpret		# line 46, column 27
+	.stabn  68,0,50,.LN46-PL0Interpreter_Interpret		# line 50, column 31
 	decl	-16(%ebp)
 .LN47:
-	.stabn  68,0,46,.LN47-PL0Interpreter_Interpret		# line 46, column 40
+	.stabn  68,0,50,.LN47-PL0Interpreter_Interpret		# line 50, column 44
 	movl	-16(%ebp),%ecx
 	.data
 	.align 4
@@ -678,12 +707,12 @@ PL0Interpreter_Interpret:
 	jmp	.Lab24
 .Lab26:
 .LN48:
-	.stabn  68,0,47,.LN48-PL0Interpreter_Interpret		# line 47, column 27
+	.stabn  68,0,51,.LN48-PL0Interpreter_Interpret		# line 51, column 31
 	incl	-16(%ebp)
 	jmp	.Lab24
 .Lab25:
 .LN49:
-	.stabn  68,0,51,.LN49-PL0Interpreter_Interpret		# line 51, column 77
+	.stabn  68,0,55,.LN49-PL0Interpreter_Interpret		# line 55, column 81
 	decl	-16(%ebp)
 	jmp	.Lab24
 .Lab23:
@@ -692,10 +721,10 @@ PL0Interpreter_Interpret:
 	jmp	.Lab12
 .Lab18:
 .LN50:
-	.stabn  68,0,54,.LN50-PL0Interpreter_Interpret		# line 54, column 21
+	.stabn  68,0,58,.LN50-PL0Interpreter_Interpret		# line 58, column 24
 	incl	-16(%ebp)
 .LN51:
-	.stabn  68,0,54,.LN51-PL0Interpreter_Interpret		# line 54, column 34
+	.stabn  68,0,58,.LN51-PL0Interpreter_Interpret		# line 58, column 37
 	movl	-16(%ebp),%eax
 	.data
 	.align 4
@@ -723,7 +752,7 @@ PL0Interpreter_Interpret:
 	jmp	.Lab12
 .Lab17:
 .LN52:
-	.stabn  68,0,55,.LN52-PL0Interpreter_Interpret		# line 55, column 41
+	.stabn  68,0,59,.LN52-PL0Interpreter_Interpret		# line 59, column 44
 	movl	-4032(%ebp),%eax
 	pushl	4(%eax)
 	call	PL0Interpreter_Interpret_base
@@ -747,12 +776,12 @@ PL0Interpreter_Interpret:
 	movl	-4028(%ebp,%eax,4),%eax
 	movl	%eax,-4028(%ebp,%ebx,4) 
 .LN53:
-	.stabn  68,0,55,.LN53-PL0Interpreter_Interpret		# line 55, column 53
+	.stabn  68,0,59,.LN53-PL0Interpreter_Interpret		# line 59, column 56
 	decl	-16(%ebp)
 	jmp	.Lab12
 .Lab16:
 .LN54:
-	.stabn  68,0,57,.LN54-PL0Interpreter_Interpret		# line 57, column 26
+	.stabn  68,0,61,.LN54-PL0Interpreter_Interpret		# line 61, column 29
 	movl	$1,%eax
  	addl	-16(%ebp),%eax 
 	.data
@@ -769,7 +798,7 @@ PL0Interpreter_Interpret:
 	popl	%ebx
 	movl	%eax,-4028(%ebp,%ebx,4) 
 .LN55:
-	.stabn  68,0,57,.LN55-PL0Interpreter_Interpret		# line 57, column 46
+	.stabn  68,0,61,.LN55-PL0Interpreter_Interpret		# line 61, column 49
 	movl	$2,%ebx
  	addl	-16(%ebp),%ebx 
 	.data
@@ -781,7 +810,7 @@ PL0Interpreter_Interpret:
 	movl	-12(%ebp),%eax
 	movl	%eax,-4028(%ebp,%ebx,4) 
 .LN56:
-	.stabn  68,0,57,.LN56-PL0Interpreter_Interpret		# line 57, column 61
+	.stabn  68,0,61,.LN56-PL0Interpreter_Interpret		# line 61, column 64
 	movl	$3,%ebx
  	addl	-16(%ebp),%ebx 
 	.data
@@ -793,19 +822,19 @@ PL0Interpreter_Interpret:
 	movl	-8(%ebp),%eax
 	movl	%eax,-4028(%ebp,%ebx,4) 
 .LN57:
-	.stabn  68,0,58,.LN57-PL0Interpreter_Interpret		# line 58, column 21
+	.stabn  68,0,62,.LN57-PL0Interpreter_Interpret		# line 62, column 24
 	movl	$1,%eax
  	addl	-16(%ebp),%eax 
 	movl	%eax,-12(%ebp) 
 .LN58:
-	.stabn  68,0,58,.LN58-PL0Interpreter_Interpret		# line 58, column 31
+	.stabn  68,0,62,.LN58-PL0Interpreter_Interpret		# line 62, column 34
 	movl	-4032(%ebp),%eax
 	movl	8(%eax),%eax
 	movl	%eax,-8(%ebp) 
 	jmp	.Lab12
 .Lab15:
 .LN59:
-	.stabn  68,0,59,.LN59-PL0Interpreter_Interpret		# line 59, column 22
+	.stabn  68,0,63,.LN59-PL0Interpreter_Interpret		# line 63, column 25
 	movl	-4032(%ebp),%eax
 	movl	8(%eax),%eax
  	addl	-16(%ebp),%eax 
@@ -813,14 +842,14 @@ PL0Interpreter_Interpret:
 	jmp	.Lab12
 .Lab14:
 .LN60:
-	.stabn  68,0,60,.LN60-PL0Interpreter_Interpret		# line 60, column 22
+	.stabn  68,0,64,.LN60-PL0Interpreter_Interpret		# line 64, column 25
 	movl	-4032(%ebp),%eax
 	movl	8(%eax),%eax
 	movl	%eax,-8(%ebp) 
 	jmp	.Lab12
 .Lab13:
 .LN61:
-	.stabn  68,0,61,.LN61-PL0Interpreter_Interpret		# line 61, column 19
+	.stabn  68,0,65,.LN61-PL0Interpreter_Interpret		# line 65, column 22
 	movl	-16(%ebp),%eax
 	.data
 	.align 4
@@ -832,25 +861,25 @@ PL0Interpreter_Interpret:
 	jne	.Lab99
 .Lab100:
 .LN62:
-	.stabn  68,0,61,.LN62-PL0Interpreter_Interpret		# line 61, column 39
+	.stabn  68,0,65,.LN62-PL0Interpreter_Interpret		# line 65, column 42
 	movl	-4032(%ebp),%eax
 	movl	8(%eax),%eax
 	movl	%eax,-8(%ebp) 
 .Lab99:
 .LN63:
-	.stabn  68,0,62,.LN63-PL0Interpreter_Interpret		# line 62, column 21
+	.stabn  68,0,66,.LN63-PL0Interpreter_Interpret		# line 66, column 24
 	decl	-16(%ebp)
 	jmp	.Lab12
 .Lab11:
 	call	CaseErr_
 .Lab12:
 .LN64:
-	.stabn  68,0,65,.LN64-PL0Interpreter_Interpret		# line 65, column 17
+	.stabn  68,0,69,.LN64-PL0Interpreter_Interpret		# line 69, column 19
 	cmpl	$0,-8(%ebp)
 	jne	.Lab8
 .Lab9:
 .LN65:
-	.stabn  68,0,66,.LN65-PL0Interpreter_Interpret		# line 66, column 0
+	.stabn  68,0,70,.LN65-PL0Interpreter_Interpret		# line 70, column 0
 .LBE3:
 	movl	-4(%ebp),%ecx
 	movl	%ecx,DISPLAY_+0
@@ -873,10 +902,10 @@ PL0Interpreter:
 	movl	%esp,%ebp
 	subl	$.Lab102, %esp
 .LN66:
-	.stabn  68,0,72,.LN66-PL0Interpreter		# line 72, column 1
+	.stabn  68,0,76,.LN66-PL0Interpreter		# line 76, column 1
 .LBB4:
 .LN67:
-	.stabn  68,0,73,.LN67-PL0Interpreter		# line 73, column 0
+	.stabn  68,0,77,.LN67-PL0Interpreter		# line 77, column 0
 .LBE4:
 	leave
 	ret

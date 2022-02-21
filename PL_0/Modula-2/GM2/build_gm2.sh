@@ -11,3 +11,8 @@ do
   gm2 -g -I. $x
 done
 
+for x in *.mod
+do
+  echo $x
+  gm2 -g -I. $x
+done

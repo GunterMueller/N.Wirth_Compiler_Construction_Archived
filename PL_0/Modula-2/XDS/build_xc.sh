@@ -18,7 +18,7 @@ done
 for x in FileIO.mod PL0Generator.mod  PL0Interpreter.mod    PL0Parser.mod  PL0ParserNew.mod  PL0Scanner.mod
 do
   echo $x
-  xc +GENDEBUG $x
+  xc +GENDEBUG -M2EXTENSIONS+ $x
 done
 
 xc  =make PL0

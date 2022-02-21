@@ -5,8 +5,10 @@ IMPLEMENTATION MODULE PL0ParserNew;
 (* GM FROM TextWindows IMPORT Window, OpenTextWindow, Write,
 WriteLn, WriteCard, WriteString, Invert, CloseTextWindow; *)
 
-FROM InOut IMPORT ReadInt, Write, WriteLn, WriteInt, WriteCard, WriteString;
+(* Mocka *)
+FROM FileIO IMPORT ReadInt, Write, WriteLn, WriteInt, WriteCard, WriteString;
 FROM Storage IMPORT ALLOCATE;
+(* Mocka *)
 
 
 

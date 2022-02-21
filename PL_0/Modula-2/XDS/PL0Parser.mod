@@ -4,7 +4,7 @@ IMPLEMENTATION MODULE PL0Parser;
 (*  FROM  TextWindows IMPORT Window, OpenTextWindow, Write, 
           WriteLn,  WriteCard, WriteString, Invert, CloseTextWindow;  *)
 (* Mocka *)
-FROM  InOut IMPORT ReadInt, Write, WriteLn, WriteInt;
+FROM  FileIO IMPORT ReadInt, Write, WriteLn, WriteInt;
 FROM Storage IMPORT ALLOCATE;
 (* Mocka *)
 

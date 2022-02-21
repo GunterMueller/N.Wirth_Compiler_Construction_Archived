@@ -2,7 +2,10 @@ IMPLEMENTATION MODULE PL0Generator;
 
 (*   FROM  TextWindows IMPORT Window. OpenTextWindow. 
                WriteString. Write. WriteLn.  WriteCard. CloseTextWindow; *)
-FROM  InOut IMPORT ReadInt, Write, WriteLn, WriteInt;
+(* Mocka *)
+(* FROM  InOut IMPORT ReadInt, Write, WriteLn, WriteInt; *)
+(* Mocka *)
+FROM  FileIO IMPORT ReadInt, Write, WriteLn, WriteInt; 
 
 FROM PL0Interpreter IMPORT Instruction, maxfct, maxadr, code; 
 

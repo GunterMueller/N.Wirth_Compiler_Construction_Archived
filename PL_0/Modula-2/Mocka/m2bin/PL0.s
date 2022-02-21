@@ -1,6 +1,6 @@
 	.comm PL0_s, 32
 	.text
-	.stabs "/home/gunter/GM_LANGUAGES/COMPILER_CONSTRUCTION/N.Wirth_Compiler_Construction/PL_0/Modula-2/Mocka/",100,0,0,.LBB0
+	.stabs "/home/gunter/GM_Programming/COMPILER/N.Wirth_Compiler_Construction/PL_0/Modula-2/Mocka/",100,0,0,.LBB0
 	.stabs "PL0.mod",100,0,0,.LBB0
 .LBB0:
 	.stabs "BOOLEAN:t1=eTRUE:1,FALSE:0,;",0x80,0,0,0
@@ -34,31 +34,53 @@
 	.globl	PL0Scanner_Mark
 	.globl	PL0Scanner_KeepId
 	.globl	PL0Scanner_Diff
-	.globl	BasicIO_Accessible
-	.globl	BasicIO_Write
-	.globl	BasicIO_Read
-	.globl	BasicIO_Erase
-	.globl	BasicIO_Close
-	.globl	BasicIO_OpenOutput
-	.globl	BasicIO_OpenInput
-	.globl	InOut_EOF
-	.globl	InOut_Done
-	.globl	InOut_WriteBf
-	.globl	InOut_WriteLn
-	.globl	InOut_WriteLongReal
-	.globl	InOut_WriteReal
-	.globl	InOut_WriteInt
-	.globl	InOut_WriteHex
-	.globl	InOut_WriteOct
-	.globl	InOut_WriteCard
-	.globl	InOut_WriteString
-	.globl	InOut_Write
-	.globl	InOut_ReadLongReal
-	.globl	InOut_ReadReal
-	.globl	InOut_ReadInt
-	.globl	InOut_ReadCard
-	.globl	InOut_ReadString
-	.globl	InOut_Read
+	.globl	FileIO_QuitExecution
+	.globl	FileIO_INT
+	.globl	FileIO_INTL
+	.globl	FileIO_ORDL
+	.globl	FileIO_Compare
+	.globl	FileIO_Concat
+	.globl	FileIO_Extract
+	.globl	FileIO_Assign
+	.globl	FileIO_SLENGTH
+	.globl	FileIO_WriteExecutionTime
+	.globl	FileIO_WriteElapsedTime
+	.globl	FileIO_WriteTime
+	.globl	FileIO_WriteDate
+	.globl	FileIO_WriteBytes
+	.globl	FileIO_WriteCard
+	.globl	FileIO_WriteInt
+	.globl	FileIO_WriteText
+	.globl	FileIO_WriteString
+	.globl	FileIO_WriteLn
+	.globl	FileIO_Write
+	.globl	FileIO_ReadBytes
+	.globl	FileIO_ReadCard
+	.globl	FileIO_ReadInt
+	.globl	FileIO_ReadToken
+	.globl	FileIO_ReadLine
+	.globl	FileIO_ReadString
+	.globl	FileIO_ReadLn
+	.globl	FileIO_ReadAgain
+	.globl	FileIO_Read
+	.globl	FileIO_EndOfFile
+	.globl	FileIO_EndOfLine
+	.globl	FileIO_Rewrite
+	.globl	FileIO_Reset
+	.globl	FileIO_SetPos
+	.globl	FileIO_GetPos
+	.globl	FileIO_Length
+	.globl	FileIO_ChangeExtension
+	.globl	FileIO_AppendExtension
+	.globl	FileIO_ExtractFileName
+	.globl	FileIO_ExtractDirectory
+	.globl	FileIO_Delete
+	.globl	FileIO_CloseAll
+	.globl	FileIO_Close
+	.globl	FileIO_SearchFile
+	.globl	FileIO_Open
+	.globl	FileIO_GetEnv
+	.globl	FileIO_NextParameter
 	.globl	PL0
 	.globl	PL0_ReadName
 	.stabs "PL0_ReadName:F16",36,0,0,PL0_ReadName
@@ -68,53 +90,56 @@ PL0_ReadName:
 	movl	%esp,%ebp
 	subl	$.Lab1, %esp
 .LN1:
-	.stabn  68,0,28,.LN1-PL0_ReadName		# line 28, column 1
+	.stabn  68,0,27,.LN1-PL0_ReadName		# line 27, column 1
 .LBB1:
 .LN2:
-	.stabn  68,0,28,.LN2-PL0_ReadName		# line 28, column 7
+	.stabn  68,0,27,.LN2-PL0_ReadName		# line 27, column 7
 	leal	PL0_s,%eax
 	pushl	%eax
-	call	InOut_Read
-	addl	$4, %esp
+	pushl	FileIO_s + 12
+	call	FileIO_Read
+	addl	$8, %esp
 .LN3:
-	.stabn  68,0,29,.LN3-PL0_ReadName		# line 29, column 9
+	.stabn  68,0,28,.LN3-PL0_ReadName		# line 28, column 9
 	movl	$1,-8(%ebp) 
 	jmp	.Lab2
 .Lab3:
 .LN4:
-	.stabn  68,0,33,.LN4-PL0_ReadName		# line 33, column 7
+	.stabn  68,0,32,.LN4-PL0_ReadName		# line 32, column 7
 	cmpb	$127,PL0_s
 	jne	.Lab7
 .Lab6:
 .LN5:
-	.stabn  68,0,34,.LN5-PL0_ReadName		# line 34, column 10
+	.stabn  68,0,33,.LN5-PL0_ReadName		# line 33, column 10
 	cmpl	$1,-8(%ebp)
 	jbe	.Lab8
 .Lab9:
 .LN6:
-	.stabn  68,0,34,.LN6-PL0_ReadName		# line 34, column 24
+	.stabn  68,0,33,.LN6-PL0_ReadName		# line 33, column 24
 	pushl	$127
-	call	InOut_Write
-	addl	$4, %esp
+	pushl	FileIO_s + 16
+	call	FileIO_Write
+	addl	$8, %esp
 .LN7:
-	.stabn  68,0,34,.LN7-PL0_ReadName		# line 34, column 39
+	.stabn  68,0,33,.LN7-PL0_ReadName		# line 33, column 46
 	decl	-8(%ebp)
 .Lab8:
 	jmp	.Lab5
 .Lab7:
 .LN8:
-	.stabn  68,0,35,.LN8-PL0_ReadName		# line 35, column 10
+	.stabn  68,0,34,.LN8-PL0_ReadName		# line 34, column 10
 	cmpl	$27,-8(%ebp)
 	jae	.Lab10
 .Lab11:
 .LN9:
-	.stabn  68,0,36,.LN9-PL0_ReadName		# line 36, column 24
+	.stabn  68,0,35,.LN9-PL0_ReadName		# line 35, column 23
 	movzbl	PL0_s,%eax
 	pushl	%eax
-	call	InOut_Write
-	addl	$4, %esp
+	pushl	FileIO_s + 16
+	call	FileIO_Write
+	addl	$8, %esp
 .LN10:
-	.stabn  68,0,36,.LN10-PL0_ReadName		# line 36, column 47
+	.stabn  68,0,36,.LN10-PL0_ReadName		# line 36, column 35
 	movl	-8(%ebp),%ebx
 	cmpl	$27,%ebx
 	jbe	.Lab12
@@ -124,7 +149,7 @@ PL0_ReadName:
 	movb	PL0_s,%al
 	movb	%al,PL0_s + 1(%ebx) 
 .LN11:
-	.stabn  68,0,36,.LN11-PL0_ReadName		# line 36, column 56
+	.stabn  68,0,36,.LN11-PL0_ReadName		# line 36, column 44
 	incl	-8(%ebp)
 .Lab10:
 .Lab5:
@@ -132,11 +157,12 @@ PL0_ReadName:
 	.stabn  68,0,38,.LN12-PL0_ReadName		# line 38, column 10
 	leal	PL0_s,%eax
 	pushl	%eax
-	call	InOut_Read
-	addl	$4, %esp
+	pushl	FileIO_s + 12
+	call	FileIO_Read
+	addl	$8, %esp
 .Lab2:
 .LN13:
-	.stabn  68,0,32,.LN13-PL0_ReadName		# line 32, column 21
+	.stabn  68,0,31,.LN13-PL0_ReadName		# line 31, column 21
 	movb	PL0_s,%al
 	cmpb	$97,%al
 	jl	.Lab18
@@ -224,7 +250,7 @@ PL0_ReadName:
 	.stabn  68,0,43,.LN20-PL0_ReadName		# line 43, column 31
 	incl	-8(%ebp)
 .LN21:
-	.stabn  68,0,43,.LN21-PL0_ReadName		# line 43, column 39
+	.stabn  68,0,44,.LN21-PL0_ReadName		# line 44, column 9
 	.data
 .Lab33:
  	.ascii	"PLO\000"
@@ -232,11 +258,12 @@ PL0_ReadName:
 	pushl	$3
 	leal	.Lab33,%eax
 	pushl	%eax
-	call	InOut_WriteString
-	addl	$8, %esp
+	pushl	FileIO_s + 16
+	call	FileIO_WriteString
+	addl	$12, %esp
 .Lab21:
 .LN22:
-	.stabn  68,0,45,.LN22-PL0_ReadName		# line 45, column 15
+	.stabn  68,0,46,.LN22-PL0_ReadName		# line 46, column 15
 	movl	-8(%ebp),%eax
 	cmpl	$27,%eax
 	jbe	.Lab34
@@ -245,7 +272,7 @@ PL0_ReadName:
 .Lab34:
 	movb	$0,PL0_s + 1(%eax) 
 .LN23:
-	.stabn  68,0,46,.LN23-PL0_ReadName		# line 46, column 0
+	.stabn  68,0,47,.LN23-PL0_ReadName		# line 47, column 0
 .LBE1:
 	leave
 	ret
@@ -261,11 +288,11 @@ PL0:
 	movl	%esp,%ebp
 	subl	$.Lab36, %esp
 .LN24:
-	.stabn  68,0,48,.LN24-PL0		# line 48, column 1
+	.stabn  68,0,49,.LN24-PL0		# line 49, column 1
 .LBB2:
 .Lab37:
 .LN25:
-	.stabn  68,0,50,.LN25-PL0		# line 50, column 8
+	.stabn  68,0,51,.LN25-PL0		# line 51, column 8
 	.data
 .Lab39:
  	.ascii	"in> \000"
@@ -273,52 +300,66 @@ PL0:
 	pushl	$4
 	leal	.Lab39,%eax
 	pushl	%eax
-	call	InOut_WriteString
-	addl	$8, %esp
+	pushl	FileIO_s + 16
+	call	FileIO_WriteString
+	addl	$12, %esp
 .LN26:
-	.stabn  68,0,51,.LN26-PL0		# line 51, column 8
+	.stabn  68,0,52,.LN26-PL0		# line 52, column 8
 	call	PL0_ReadName
 .LN27:
-	.stabn  68,0,52,.LN27-PL0		# line 52, column 4
-	cmpb	$27,PL0_s
+	.stabn  68,0,54,.LN27-PL0		# line 54, column 4
+	cmpb	$11,PL0_s
 	jne	.Lab40
 .Lab41:
 .LN28:
-	.stabn  68,0,52,.LN28-PL0		# line 52, column 21
+	.stabn  68,0,54,.LN28-PL0		# line 54, column 21
 	jmp	.Lab38
 .Lab40:
 .LN29:
-	.stabn  68,0,53,.LN29-PL0		# line 53, column 4
+	.stabn  68,0,55,.LN29-PL0		# line 55, column 7
+	pushl	$27
+	leal	PL0_s + 1,%eax
+	pushl	%eax
+	pushl	FileIO_s + 16
+	call	FileIO_WriteString
+	addl	$12, %esp
+.LN30:
+	.stabn  68,0,56,.LN30-PL0		# line 56, column 7
 	pushl	$0
 	pushl	$27
 	leal	PL0_s + 1,%eax
 	pushl	%eax
-	call	BasicIO_Accessible
-	addl	$12, %esp
-	cmpb	$0,%al
+	leal	PL0Scanner_s + 12,%eax
+	pushl	%eax
+	call	FileIO_Open
+	addl	$16, %esp
+.LN31:
+	.stabn  68,0,57,.LN31-PL0		# line 57, column 4
+	cmpb	$0,FileIO_s
 	je	.Lab44
 .Lab43:
-.LN30:
-	.stabn  68,0,54,.LN30-PL0		# line 54, column 7
-	call	PL0Scanner_InitScanner
-.LN31:
-	.stabn  68,0,55,.LN31-PL0		# line 55, column 7
-	call	PL0Generator_InitGenerator
 .LN32:
-	.stabn  68,0,56,.LN32-PL0		# line 56, column 7
-	call	PL0Parser_Parse
+	.stabn  68,0,58,.LN32-PL0		# line 58, column 7
+	call	PL0Scanner_InitScanner
 .LN33:
-	.stabn  68,0,57,.LN33-PL0		# line 57, column 7
-	pushl	PL0Scanner_s + 12
-	call	BasicIO_Close
-	addl	$4, %esp
+	.stabn  68,0,59,.LN33-PL0		# line 59, column 7
+	call	PL0Generator_InitGenerator
 .LN34:
-	.stabn  68,0,58,.LN34-PL0		# line 58, column 7
+	.stabn  68,0,60,.LN34-PL0		# line 60, column 7
+	call	PL0Parser_Parse
+.LN35:
+	.stabn  68,0,61,.LN35-PL0		# line 61, column 7
+	leal	PL0Scanner_s + 12,%eax
+	pushl	%eax
+	call	FileIO_Close
+	addl	$4, %esp
+.LN36:
+	.stabn  68,0,62,.LN36-PL0		# line 62, column 7
 	cmpb	$0,PL0Parser_s
 	je	.Lab47
 .Lab46:
-.LN35:
-	.stabn  68,0,59,.LN35-PL0		# line 59, column 10
+.LN37:
+	.stabn  68,0,63,.LN37-PL0		# line 63, column 10
 	.data
 .Lab48:
  	.ascii	" interpreting\000"
@@ -326,15 +367,16 @@ PL0:
 	pushl	$13
 	leal	.Lab48,%eax
 	pushl	%eax
-	call	InOut_WriteString
-	addl	$8, %esp
-.LN36:
-	.stabn  68,0,59,.LN36-PL0		# line 59, column 40
+	pushl	FileIO_s + 16
+	call	FileIO_WriteString
+	addl	$12, %esp
+.LN38:
+	.stabn  68,0,63,.LN38-PL0		# line 63, column 47
 	call	PL0Interpreter_Interpret
 	jmp	.Lab45
 .Lab47:
-.LN37:
-	.stabn  68,0,60,.LN37-PL0		# line 60, column 13
+.LN39:
+	.stabn  68,0,64,.LN39-PL0		# line 64, column 13
 	.data
 .Lab49:
  	.ascii	" incorrect\000"
@@ -342,13 +384,14 @@ PL0:
 	pushl	$10
 	leal	.Lab49,%eax
 	pushl	%eax
-	call	InOut_WriteString
-	addl	$8, %esp
+	pushl	FileIO_s + 16
+	call	FileIO_WriteString
+	addl	$12, %esp
 .Lab45:
 	jmp	.Lab42
 .Lab44:
-.LN38:
-	.stabn  68,0,62,.LN38-PL0		# line 62, column 9
+.LN40:
+	.stabn  68,0,66,.LN40-PL0		# line 66, column 9
 	.data
 .Lab50:
  	.ascii	" not found\000"
@@ -356,28 +399,31 @@ PL0:
 	pushl	$10
 	leal	.Lab50,%eax
 	pushl	%eax
-	call	InOut_WriteString
-	addl	$8, %esp
+	pushl	FileIO_s + 16
+	call	FileIO_WriteString
+	addl	$12, %esp
 .Lab42:
-.LN39:
-	.stabn  68,0,64,.LN39-PL0		# line 64, column 3
-	call	InOut_WriteLn
+.LN41:
+	.stabn  68,0,68,.LN41-PL0		# line 68, column 3
+	pushl	FileIO_s + 16
+	call	FileIO_WriteLn
+	addl	$4, %esp
 	jmp	.Lab37
 .Lab38:
-.LN40:
-	.stabn  68,0,67,.LN40-PL0		# line 67, column 1
-	call	PL0Scanner_CloseScanner
-.LN41:
-	.stabn  68,0,67,.LN41-PL0		# line 67, column 15
-	call	PL0Parser_EndParser
 .LN42:
-	.stabn  68,0,67,.LN42-PL0		# line 67, column 26
-	call	PL0Generator_EndGenerator
+	.stabn  68,0,71,.LN42-PL0		# line 71, column 1
+	call	PL0Scanner_CloseScanner
 .LN43:
-	.stabn  68,0,67,.LN43-PL0		# line 67, column 40
-	call	PL0Interpreter_EndInterpreter
+	.stabn  68,0,71,.LN43-PL0		# line 71, column 15
+	call	PL0Parser_EndParser
 .LN44:
-	.stabn  68,0,68,.LN44-PL0		# line 68, column 0
+	.stabn  68,0,71,.LN44-PL0		# line 71, column 26
+	call	PL0Generator_EndGenerator
+.LN45:
+	.stabn  68,0,71,.LN45-PL0		# line 71, column 40
+	call	PL0Interpreter_EndInterpreter
+.LN46:
+	.stabn  68,0,72,.LN46-PL0		# line 72, column 0
 .LBE2:
 	leave
 	ret
