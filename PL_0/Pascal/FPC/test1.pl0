@@ -1,8 +1,6 @@
-(* groesster gemeinsamer Teiler zweier Zahlen *)
-(*$T+ *)
 
-VAR i   : INTEGER;
-VAR a,b : INTEGER;
+var i   : INTEGER;
+var a,b : INTEGER;
 
 PROCEDURE reduce;
 BEGIN

@@ -1,5 +1,4 @@
 DEFINITION MODULE PL0Interpreter; 
-
 CONST maxfct = 15; 
       maxlev = 15; 
       maxadr = 1023; 

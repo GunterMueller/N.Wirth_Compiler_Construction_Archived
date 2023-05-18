@@ -1,18 +1,16 @@
 IMPLEMENTATION MODULE PL0Scanner; 
-(*   FROM  Terminal  IMPORT Read, BusyRead; *) 
+(*  FROM  Terminal  IMPORT Read, BusyRead; *) 
 (*  FROM  FileSystem IMPORT ReadChar;  *)
 (*  FROM  TextWindows IMPORT Window, OpenTextWindow. 
              Write. WriteCard, Invert, CloseTextWindow;  *)
-(* MOCKA *)
-(* FROM  InOut IMPORT Read, ReadInt, Write, WriteLn, WriteInt, WriteCard ; *)
-(* MOCKA *)
-
-FROM  InOut IMPORT Read, ReadInt, Write, WriteLn, WriteInt, WriteCard ; 
+(* Use COCO/R FileIO module *)
+FROM  FileIO IMPORT File, Read, ReadInt, Write, WriteLn, WriteInt, WriteCard ;  
 
  CONST maxCard = 177777B; bufLen = 1000; 
  VAR  ch:  CHAR; (*last character read*) 
       id0, id1: CARDINAL; (*indices to identifier bufferr*) 
       (* GM win: Window;  *)
+      progout : File;
       keyTab: ARRAY [1  .. 20]  OF 
               RECORD sym: Symbol; ind: CARDINAL END ;
       K: CARDINAL;  (*no of  key  words*) 
@@ -22,11 +20,11 @@ FROM  InOut IMPORT Read, ReadInt, Write, WriteLn, WriteInt, WriteCard ;
 
  PROCEDURE Mark(n: CARDINAL); 
     BEGIN (* Invert(win, TRUE);  *)
-           WriteCard(n,  1); (* GM Invert(win, FALSE)  *)
+           WriteCard( progout,n,  1); (* GM Invert(win, FALSE)  *)
     END  Mark; 
 
  PROCEDURE GetCh; 
-    BEGIN Read(ch); Write(ch) 
+    BEGIN Read(source,ch); Write(progout, ch) 
     END  GetCh; 
 
  PROCEDURE Diff(u,v: CARDINAL): INTEGER; 
@@ -100,8 +98,8 @@ FROM  InOut IMPORT Read, ReadInt, Write, WriteLn, WriteInt, WriteCard ;
               GetCh 
      END  Comment; 
 
-   BEGIN Read(xch); 
-         IF  xch  >  0C  THEN Read(xch) END; 
+   BEGIN (* BusyRead(xch); *)
+         IF  xch  >  0C  THEN Read(source,xch) END; 
          LOOP (*ignore control characters*) 
               IF  ch  <=  " " THEN 
                   IF  ch  = 0C  THEN  ch  :=  " "; EXIT  END ;

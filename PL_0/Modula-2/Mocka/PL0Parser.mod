@@ -3,8 +3,10 @@ IMPLEMENTATION MODULE PL0Parser;
 (* GM  FROM  Heap IMPORT ALLOCATE, ResetHeap;  *)
 (*  FROM  TextWindows IMPORT Window, OpenTextWindow, Write, 
           WriteLn,  WriteCard, WriteString, Invert, CloseTextWindow;  *)
-FROM  InOut IMPORT ReadInt, Write, WriteLn, WriteInt;
+(* Mocka *)
+FROM  FileIO IMPORT ReadInt, Write, WriteLn, WriteInt;
 FROM Storage IMPORT ALLOCATE;
+(* Mocka *)
 
 
 FROM PL0Scanner IMPORT 

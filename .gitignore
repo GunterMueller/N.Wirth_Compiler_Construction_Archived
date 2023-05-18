@@ -1,0 +1,9 @@
+*.sym
+*.o
+PL0
+Oberon0
+plzero
+m2bin/
+*.c
+*.h
+tmp.mkf
